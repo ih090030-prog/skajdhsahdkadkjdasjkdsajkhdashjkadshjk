@@ -1,0 +1,17 @@
+{
+  "name": "esok-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@mercuryworkshop/proxy-bootstrap": "*",
+    "express": "^4.21.2"
+  },
+  "license": "AGPL-3.0-only"
+}

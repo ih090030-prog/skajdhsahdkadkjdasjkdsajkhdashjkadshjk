@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ESOK — Search</title>
+<style>
+:root{--bg:#071326;--panel:#0c1d36;--panel2:#102747;--line:#1c3a61;--text:#edf5ff;--muted:#93aac8;--blue:#398bff;--cyan:#54d8ff;--glow:rgba(57,139,255,.22);--radius:20px}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 58% -15%,#153c70 0%,transparent 48%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer;color:inherit}a{color:inherit;text-decoration:none}.app{display:grid;grid-template-columns:246px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;padding:24px 16px 18px;border-right:1px solid rgba(92,147,211,.17);background:rgba(5,17,35,.76);backdrop-filter:blur(18px);display:flex;flex-direction:column;gap:28px}.brand{display:flex;align-items:center;gap:12px;padding:2px 10px}.logo{width:38px;height:38px;border-radius:13px;background:linear-gradient(140deg,#64dcff,#347bff 60%,#654fff);display:grid;place-items:center;font-size:20px;font-weight:900;box-shadow:0 8px 24px var(--glow)}.brand-name{font-weight:800;font-size:20px;letter-spacing:.07em}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.13em;text-transform:uppercase}.nav-label{padding:0 12px;color:#6885aa;font-size:10px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;margin-bottom:8px}.nav{display:grid;gap:6px}.nav-btn{width:100%;display:flex;align-items:center;gap:13px;padding:12px 13px;border:1px solid transparent;border-radius:13px;background:transparent;color:#9bb0cd;text-align:left;transition:.18s ease}.nav-btn:hover{background:rgba(60,130,220,.1);color:var(--text)}.nav-btn.active{background:linear-gradient(100deg,rgba(46,123,244,.24),rgba(46,123,244,.07));border-color:rgba(76,151,255,.22);color:#fff;box-shadow:inset 3px 0 #4b9cff}.nav-icon{width:22px;text-align:center;font-size:17px}.side-bottom{margin-top:auto}.profile{display:flex;align-items:center;gap:11px;padding:14px 10px;border-top:1px solid rgba(92,147,211,.17)}.avatar{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:#173b68;color:#8fdcff;font-weight:800}.profile small{display:block;color:var(--muted);font-size:11px}.main{min-width:0;padding:22px clamp(18px,4vw,54px) 36px}.topline{display:flex;justify-content:space-between;align-items:center;gap:15px;max-width:1080px;margin:0 auto}.crumb{color:#88a4c7;font-size:13px}.top-actions{display:flex;align-items:center;gap:10px}.status{border:1px solid rgba(93,151,220,.2);background:rgba(15,38,67,.65);border-radius:99px;padding:8px 12px;color:#9bb5d6;font-size:12px}.tiny-avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#286bca,#6a8cff);font-weight:700}.content{max-width:1000px;margin:0 auto}.home{padding-top:min(13vh,125px)}.hero{text-align:center;margin-bottom:30px}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:#a9c8ef;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:17px}.eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}h1{font-size:clamp(42px,6vw,66px);line-height:1.05;letter-spacing:-.055em;margin:0 0 13px;font-weight:800}.hero-logo{display:inline-block;font-size:clamp(64px,11vw,112px);line-height:1;font-weight:950;letter-spacing:.09em;margin:0 auto 14px;background:linear-gradient(100deg,#f7fbff 4%,#8ecaff 48%,#53ddff 78%,#7895ff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 10px 40px rgba(55,143,255,.12);min-height:1em}.hero-logo::after{content:"";display:inline-block;height:.78em;width:3px;margin-left:7px;vertical-align:-.03em;background:#65dfff;box-shadow:0 0 16px #4baaff;animation:esokCaret .8s steps(2,end) infinite}@keyframes esokCaret{50%{opacity:0}}.hero-logo.done::after{animation:esokCaret .8s steps(2,end) infinite}.gradient{background:linear-gradient(100deg,#f4f9ff 12%,#8ecaff 54%,#5de0ff);-webkit-background-clip:text;background-clip:text;color:transparent}.subtitle{color:#9bb2d0;margin:0;font-size:15px}.search-wrap{max-width:720px;margin:0 auto;position:relative}.search{height:62px;border:1px solid #2a4d78;border-radius:19px;background:linear-gradient(110deg,rgba(15,37,66,.98),rgba(11,29,53,.98));display:flex;align-items:center;padding:7px 8px 7px 20px;gap:12px;box-shadow:0 15px 45px rgba(0,0,0,.19),0 0 0 5px rgba(44,115,206,.055);transition:.2s}.search:focus-within{border-color:#4b9eff;box-shadow:0 15px 45px rgba(0,0,0,.2),0 0 0 5px rgba(44,135,255,.13)}.search-glass{color:#8fb7e8;font-size:20px}.search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font-size:15px}.search input::placeholder{color:#7892b3}.search button{border:0;border-radius:13px;background:linear-gradient(130deg,#398bff,#3867ed);padding:11px 17px;font-weight:700;box-shadow:0 5px 15px rgba(44,112,240,.2)}.search button:hover{filter:brightness(1.12)}.hint{margin-top:12px;color:#708bab;font-size:12px;text-align:center}.hint kbd{border:1px solid #000;border-radius:6px;padding:3px 7px;color:#000;background:#fff;font-weight:800;box-shadow:0 2px 0 #555}.quick-title{display:flex;align-items:center;justify-content:space-between;margin:48px 0 14px}.section-title{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#a7bdd9}.section-note{color:#6985a7;font-size:12px}.quick-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.quick{min-width:0;display:flex;align-items:center;gap:11px;padding:14px 12px;border:1px solid rgba(86,137,196,.17);background:rgba(13,32,57,.66);border-radius:16px;transition:.18s}.quick:hover{transform:translateY(-3px);border-color:rgba(76,151,255,.45);background:#102947}.quick-icon{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:18px;background:#16385e}.quick-icon.brand-icon{background:transparent;padding:0;overflow:hidden}.quick-icon.brand-icon svg{display:block;width:32px;height:32px}.quick-icon.brand-icon.youtube svg{width:34px;height:26px}.quick-icon.brand-icon.wikipedia svg{width:30px;height:30px}.quick-icon.brand-icon.github svg{width:32px;height:32px}.quick-icon.brand-icon.spotify svg{width:34px;height:34px}.quick b{display:block;font-size:13px;white-space:nowrap}.quick small{display:block;color:#7893b4;font-size:11px;white-space:nowrap}.lower-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:18px}.info-card{border:1px solid rgba(86,137,196,.17);background:linear-gradient(140deg,rgba(14,35,62,.82),rgba(9,26,47,.82));border-radius:18px;padding:20px}.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.card-head h2{font-size:14px;margin:0}.card-head span{color:#7594ba;font-size:12px}.feature-row{display:flex;align-items:center;gap:13px;padding:12px 0;border-top:1px solid rgba(86,137,196,.13)}.feature-icon{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#174577,#122d4f);display:grid;place-items:center;font-size:19px}.feature-row b{font-size:13px}.feature-row p{margin:2px 0 0;color:#8da7c7;font-size:12px}.open-link{margin-left:auto;color:#83bdff;font-size:12px;white-space:nowrap}.footer{text-align:center;margin-top:36px;color:#5f7b9d;font-size:11px}.page{padding-top:54px}.page-heading{display:flex;align-items:center;gap:16px;margin-bottom:28px}.page-heading .big-icon{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(145deg,#194c82,#142d58);font-size:26px;border:1px solid #2b507b}.page-heading h1{font-size:34px;letter-spacing:-.03em;margin:0 0 5px}.page-heading p{margin:0;color:var(--muted)}.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.tile{padding:20px;border-radius:18px;border:1px solid rgba(86,137,196,.2);background:linear-gradient(145deg,rgba(17,43,75,.9),rgba(10,27,49,.95));min-height:155px;display:flex;flex-direction:column;align-items:flex-start;transition:.2s}.tile:hover{border-color:#3b8de9;transform:translateY(-2px)}.tile .tile-emoji{font-size:25px;margin-bottom:16px}.tile h3{font-size:15px;margin:0 0 5px}.tile p{font-size:12px;color:#8ca6c6;margin:0 0 16px}.tile a,.tile button{margin-top:auto;border:1px solid #315783;background:#14365c;border-radius:10px;padding:8px 11px;font-size:12px;color:#cde4ff}.tile button:hover,.tile a:hover{background:#20528a}.panel{max-width:800px;border:1px solid rgba(86,137,196,.2);border-radius:18px;background:rgba(13,32,57,.8);padding:22px;margin-bottom:15px}.panel h2{font-size:15px;margin:0 0 7px}.panel p{color:#8da7c7;font-size:13px;margin:0 0 15px}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0;border-top:1px solid rgba(86,137,196,.15)}.setting-row:first-of-type{border-top:0}.setting-row strong{font-size:13px;display:block}.setting-row small{display:block;color:#8da7c7;font-size:12px}.setting-row select,.setting-row input[type="color"]{border:1px solid #315783;border-radius:9px;background:#0b1d34;color:#eaf4ff;padding:8px}.ai-box{max-width:760px;border:1px solid rgba(86,137,196,.2);border-radius:20px;background:rgba(13,32,57,.8);overflow:hidden}.ai-message{padding:24px;min-height:220px}.ai-welcome{display:flex;gap:14px;align-items:flex-start}.ai-mark{width:40px;height:40px;flex:none;border-radius:14px;display:grid;place-items:center;background:linear-gradient(140deg,#54d8ff,#397cff);color:#06162d;font-weight:900}.ai-welcome h2{font-size:17px;margin:2px 0 8px}.ai-welcome p{font-size:13px;color:#9bb2d0;margin:0;max-width:540px}.ai-input{display:flex;gap:9px;padding:13px;border-top:1px solid rgba(86,137,196,.17)}.ai-input input{flex:1;min-width:0;border:1px solid #28486f;border-radius:12px;background:#091a30;color:white;padding:12px;outline:none}.ai-input button{border:0;border-radius:12px;padding:0 17px;background:#347df0;font-weight:700}.ai-response{margin:20px 0 0 54px;padding:13px 15px;border-radius:12px;background:#112e50;color:#dcecff;font-size:13px;white-space:pre-wrap}.hidden{display:none!important}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);padding:11px 16px;border:1px solid #315783;border-radius:12px;background:#102947;color:#ddecff;box-shadow:0 10px 35px #0005;font-size:13px;z-index:10}.light{--bg:#edf4ff;--panel:#fff;--panel2:#e2edff;--line:#c7d8f0;--text:#102440;--muted:#607797;background:radial-gradient(ellipse at 58% -15%,#d3e7ff 0%,transparent 48%),var(--bg);color:var(--text)}.light .sidebar{background:rgba(248,251,255,.9);border-color:#d7e3f3}.light .nav-btn{color:#536987}.light .nav-btn.active{color:#15365e}.light .search,.light .info-card,.light .quick,.light .tile,.light .panel,.light .ai-box{background:rgba(255,255,255,.88);border-color:#d4e1f2;color:#102440}.light .search input,.light .ai-input input{color:#102440}.light .search input::placeholder{color:#7b8da8}.light .subtitle,.light .section-note,.light .feature-row p,.light .tile p,.light .panel p,.light .setting-row small,.light .ai-welcome p{color:#617896}.light .status,.light .search kbd{background:#fff;color:#526b8a;border-color:#d4e1f2}.light .quick-icon,.light .feature-icon,.light .page-heading .big-icon{background:#e0edff}.light .setting-row select{background:white;color:#102440}.light .ai-input input{background:white;border-color:#cfddf0}.light .ai-response{background:#e1edff;color:#17385e}
+@media(max-width:950px){.app{grid-template-columns:205px minmax(0,1fr)}.quick-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.lower-grid{grid-template-columns:1fr}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.main{padding-left:24px;padding-right:24px}}
+@media(max-width:650px){.app{display:block}.sidebar{position:relative;height:auto;padding:12px;gap:12px;border-right:0;border-bottom:1px solid rgba(92,147,211,.17)}.brand{padding:2px 6px}.sidebar .nav-label,.side-bottom{display:none}.nav{display:flex;overflow-x:auto;gap:5px}.nav-btn{width:auto;flex:none;padding:9px 11px;font-size:12px;gap:7px}.nav-icon{font-size:15px;width:auto}.main{padding:16px}.home{padding-top:10vh}.status{display:none}.quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-grid .quick:last-child{grid-column:span 2}.tiles{grid-template-columns:1fr 1fr}.page{padding-top:30px}.page-heading h1{font-size:29px}.search{height:56px;padding-left:13px}.search button{padding:10px 12px}.footer{margin-bottom:10px}}
+@media(max-width:390px){.tiles{grid-template-columns:1fr}.quick{padding:11px 9px}.quick-icon{width:33px;height:33px}.quick b{font-size:12px}}
+
+/* ESOK startup loading screen */
+#esok-loader{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 38%,#123e75 0%,#091d3b 42%,#050e20 100%);opacity:1;visibility:visible;transition:opacity .55s ease,visibility .55s ease;color:#f4f9ff}
+#esok-loader::before,#esok-loader::after{content:"";position:absolute;border:1px solid rgba(88,175,255,.13);border-radius:50%;width:min(72vw,650px);aspect-ratio:1;animation:loaderOrbit 14s linear infinite}
+#esok-loader::after{width:min(52vw,460px);animation-direction:reverse;border-color:rgba(84,216,255,.12)}
+#esok-loader.loader-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-inner{position:relative;z-index:1;text-align:center;padding:24px;width:min(90vw,600px)}
+.loader-symbol{width:48px;height:48px;margin:0 auto 24px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,#64dcff,#347bff 60%,#654fff);font-weight:950;font-size:25px;color:#06152d;box-shadow:0 0 45px rgba(57,139,255,.35);animation:loaderPulse 1.5s ease-in-out infinite}
+.loader-word{min-height:1.08em;font-size:clamp(68px,13vw,124px);font-weight:950;letter-spacing:.13em;line-height:1;background:linear-gradient(100deg,#fff 4%,#8ecaff 50%,#53ddff 82%,#8197ff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 10px 50px rgba(55,143,255,.18)}
+.loader-word::after{content:"";display:inline-block;width:3px;height:.75em;margin-left:2px;vertical-align:-.02em;background:#65dfff;box-shadow:0 0 16px #4baaff;animation:esokCaret .8s steps(2,end) infinite}
+.loader-caption{margin-top:20px;color:#9bbce3;font-size:11px;letter-spacing:.28em;text-transform:uppercase}
+.loader-track{width:min(250px,70%);height:3px;margin:26px auto 0;border-radius:10px;background:rgba(131,184,255,.15);overflow:hidden}
+.loader-progress{height:100%;width:0;background:linear-gradient(90deg,#398bff,#54d8ff);box-shadow:0 0 14px #54d8ff;animation:loaderProgress 1.75s cubic-bezier(.22,.7,.25,1) forwards}
+@keyframes loaderProgress{to{width:100%}}@keyframes loaderPulse{50%{transform:translateY(-3px);box-shadow:0 0 60px rgba(57,139,255,.5)}}@keyframes loaderOrbit{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){#esok-loader::before,#esok-loader::after,.loader-symbol,.loader-progress{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+/* Compact search action: keep it aligned with the search field instead of oversized. */
+.search button{flex:0 0 auto;width:auto;min-width:0;min-height:0;height:40px;padding:0 13px;font-size:13px;line-height:1;white-space:nowrap;border-radius:11px;box-shadow:0 3px 10px rgba(44,112,240,.16)}
+@media(max-width:650px){.search button{height:36px;padding:0 10px;font-size:12px;border-radius:10px}}
+
+/* Games brand icon: crisp outline chess knight */
+.games-icon{display:inline-grid;place-items:center}
+.games-outline{width:22px;height:22px;display:block;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}.games-outline-fallback{display:inline-flex;width:22px;height:22px;align-items:center;justify-content:center;font-size:24px;line-height:1;color:currentColor}
+.quick-icon.games-icon .games-outline,.quick-icon.games-icon .games-outline-fallback{width:25px;height:25px}
+.page-heading .big-icon.games-outline,.page-heading .big-icon .games-outline,.page-heading .big-icon .games-outline-fallback{width:32px;height:32px;font-size:32px}
+
+.game-toolbar{display:flex;align-items:center;gap:14px;margin:0 0 16px;max-width:800px}.game-search{flex:1;min-width:0;border:1px solid #294b74;border-radius:12px;background:#0b1d34;color:var(--text);padding:11px 14px;outline:none}.game-search:focus{border-color:#4b9eff;box-shadow:0 0 0 3px rgba(57,139,255,.12)}.game-tiles{max-width:1000px}.game-cover{height:112px;width:100%;border-radius:13px;display:grid;place-items:center;margin-bottom:15px;font-weight:900;letter-spacing:-.04em}.cover-2048{background:#e8bf08;color:white;font-size:44px}.cover-ttt{background:linear-gradient(135deg,#133e6b,#398bff);color:#fff;font-size:35px}.cover-folder{background:#102747;color:#75c6ff;font-size:48px}.game-footnote{margin-top:18px;color:#7893b4;font-size:12px;max-width:850px}.game-footnote code{color:#b8d8ff}.local-game[hidden]{display:none}.esok-local-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px;margin-top:14px}.esok-local-card{position:relative;min-width:0;padding:15px;border:1px solid rgba(86,137,196,.2);border-radius:17px;background:linear-gradient(145deg,rgba(17,43,75,.94),rgba(10,27,49,.96));color:var(--text);box-shadow:0 8px 24px rgba(0,0,0,.12);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;overflow:hidden}.esok-local-card:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,transparent,#398bff,#54d8ff,transparent);opacity:.75}.esok-local-card:hover{transform:translateY(-3px);border-color:rgba(76,151,255,.5);box-shadow:0 14px 30px rgba(0,0,0,.2)}.esok-local-card .cover{height:118px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.08);border-radius:13px;margin-bottom:15px;font-size:34px;font-weight:900;box-shadow:inset 0 1px rgba(255,255,255,.12)}.esok-local-card .cover.cover-2048-local{background:radial-gradient(circle at 70% 25%,rgba(255,255,255,.22),transparent 34%),linear-gradient(135deg,#9a7600,#f4d34f);color:#15243b;font-size:43px;letter-spacing:-.06em}.esok-local-card .cover.cover-ttt-local{background:radial-gradient(circle at 20% 20%,rgba(84,216,255,.24),transparent 40%),linear-gradient(135deg,#102747,#1a4c83 58%,#398bff);color:#eaf5ff;font-size:38px;letter-spacing:.08em}.esok-local-card h3{margin:0 0 5px;font-size:15px;letter-spacing:-.01em}.esok-local-card p{margin:0 0 15px;color:var(--muted);font-size:12px;line-height:1.55;min-height:19px}.esok-local-card button{border:1px solid rgba(120,180,255,.35);border-radius:10px;background:linear-gradient(130deg,var(--blue),#3867ed);color:white;padding:10px 14px;font-weight:750;font-size:12px;cursor:pointer;box-shadow:0 5px 14px rgba(44,112,240,.17);transition:filter .18s,transform .18s}.esok-local-card button:hover{filter:brightness(1.12);transform:translateY(-1px)}.esok-local-card button:focus-visible{outline:2px solid #8dc9ff;outline-offset:3px}@media(max-width:600px){.lumin-panel{padding:15px}.lumin-heading{align-items:flex-start}.lumin-badge{font-size:9px}.esok-local-grid{grid-template-columns:1fr}}
+
+.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:100%;height:100%;font-weight:900;font-size:22px;line-height:1}.youtube .brand-mark{background:#ff0033;color:white;border-radius:7px;font-size:17px}.wikipedia .brand-mark{background:#fff;color:#222;border-radius:50%;font-family:Georgia,serif}.github .brand-mark{background:#24292f;color:#fff;border-radius:50%}.spotify .brand-mark{background:#1db954;color:#102018;border-radius:50%;font-size:28px}
+
+/* ESOK BLACK UI THEME — black surfaces with crisp neutral contrast */
+:root{--bg:#050505;--panel:#0b0b0b;--panel2:#111111;--line:#292929;--text:#f5f5f5;--muted:#a4a4a4;--blue:#8b8b8b;--cyan:#d8d8d8;--glow:rgba(255,255,255,.09);--radius:20px;color-scheme:dark}
+body{background:radial-gradient(ellipse at 58% -15%,#191919 0%,transparent 48%),#050505;color:#f5f5f5}
+.sidebar{background:rgba(5,5,5,.94);border-right-color:#252525}
+.nav-label,.crumb,.section-note,.hint,.footer{color:#858585}
+.nav-btn{color:#b9b9b9}.nav-btn:hover{background:#191919;color:#fff}.nav-btn.active{background:linear-gradient(100deg,#252525,#111);border-color:#393939;color:#fff;box-shadow:inset 3px 0 #d5d5d5}
+.status,.search,.quick,.info-card,.tile,.panel,.ai-box,.lumin-panel,.game-card,.esok-local-card{background:#0d0d0d;border-color:#2b2b2b;color:#f4f4f4}
+.search{box-shadow:0 15px 45px rgba(0,0,0,.4)}.search:focus-within{border-color:#8a8a8a;box-shadow:0 15px 45px rgba(0,0,0,.4),0 0 0 4px rgba(255,255,255,.06)}
+.search button,.ai-input button,.primary-btn,.game-card button,.esok-local-card button{background:linear-gradient(135deg,#333,#171717);border:1px solid #444;color:#fff}
+.search button:hover,.ai-input button:hover,.primary-btn:hover,.game-card button:hover,.esok-local-card button:hover{background:#404040}
+.quick{background:#0c0c0c;border-color:#252525}.quick:hover{background:#181818;border-color:#555}.quick-icon,.avatar,.feature-icon,.page-heading .big-icon{background:linear-gradient(145deg,#292929,#111);color:#f2f2f2;border-color:#383838}
+.lower-grid .info-card,.tile,.panel,.ai-box{background:linear-gradient(145deg,#101010,#080808);border-color:#292929}
+.feature-row,.profile,.setting-row{border-color:#292929}.open-link,.eyebrow,.section-title,.page-heading p{color:#c0c0c0}
+.hero-logo,.gradient{background:linear-gradient(100deg,#fff 10%,#c7c7c7 60%,#858585);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+.hero-logo::after{background:#eee;box-shadow:0 0 10px #aaa}.eyebrow:before{background:#ddd;box-shadow:0 0 10px #999}
+.tile:hover{border-color:#666}.tile a,.tile button{background:#191919;border-color:#444;color:#f3f3f3}.tile button:hover,.tile a:hover{background:#303030}
+.setting-row select,.setting-row input[type=color]{background:#111;border-color:#444;color:#f5f5f5}
+.ai-mark{background:linear-gradient(140deg,#ddd,#666);color:#050505}.ai-input,.ai-input input,.ai-input textarea{background:#090909;color:#f5f5f5;border-color:#333}
+.lumin-status{background:#111;border-color:#333;color:#ddd}.lumin-games{color:#f5f5f5}
+.esok-local-card{background:linear-gradient(145deg,#121212,#080808)!important;border:1px solid #303030!important;color:#f5f5f5!important;box-shadow:0 12px 32px #0008}
+.esok-local-card p{color:#aaa!important}.cover-2048-local,.cover-ttt-local{background:linear-gradient(135deg,#292929,#080808)!important;color:#eee!important}
+.game-modal{background:rgba(0,0,0,.88)}.game-modal-card{background:#050505;border-color:#383838}.game-modal-head{background:#101010;color:#f5f5f5;border-bottom-color:#333}.game-modal-head button{background:#222;border-color:#444;color:#fff}#gameModalFrame{background:#050505}
+
+/* BLACK GAME LIBRARY */
+.lumin-panel{background:#050505!important;border:1px solid #292929!important;border-radius:20px!important;box-shadow:0 18px 45px #0008!important;color:#f5f5f5!important;padding:22px!important}
+.lumin-heading h2,.lumin-heading p,.lumin-status{color:#f5f5f5!important}
+.lumin-heading p{color:#a1a1a1!important}
+.lumin-badge{background:#171717!important;color:#f3f3f3!important;border:1px solid #333!important;border-radius:999px!important;padding:8px 12px!important}
+.lumin-status{background:#101010!important;border:1px solid #292929!important;border-radius:12px!important;padding:12px 14px!important;margin:16px 0!important}
+.lumin-games{color:#f5f5f5!important}
+.esok-online-fallback{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:16px}
+.esok-online-game{display:flex;flex-direction:column;gap:10px;min-height:150px;padding:18px;border-radius:16px;border:1px solid #303030;background:linear-gradient(145deg,#151515,#080808);color:#f5f5f5;text-decoration:none;transition:transform .18s,border-color .18s,background .18s}
+.esok-online-game:hover{transform:translateY(-3px);border-color:#666;background:linear-gradient(145deg,#202020,#0b0b0b)}
+.esok-online-game .game-emoji{font-size:28px}.esok-online-game strong{font-size:16px}.esok-online-game span:last-child{font-size:12px;line-height:1.5;color:#aaa}
+.esok-online-note{font-size:12px;color:#999;margin-top:14px;line-height:1.5}
+
+
+/* Modern black-glass Explore ESOK cards */
+.lower-grid .info-card:has(.feature-row){background:linear-gradient(145deg,#111 0%,#080808 72%);border-color:#303030;box-shadow:0 18px 45px rgba(0,0,0,.28)}
+.lower-grid .info-card:has(.feature-row) .card-head{margin-bottom:18px}
+.lower-grid .info-card:has(.feature-row) .card-head h2{font-size:15px;letter-spacing:-.02em;color:#f7f7f7}
+.lower-grid .info-card:has(.feature-row) .card-head span{padding:5px 9px;border:1px solid #333;border-radius:999px;background:#171717;color:#bdbdbd}
+.feature-row{position:relative;gap:14px;margin:9px 0;padding:14px;border:1px solid #292929;border-radius:16px;background:linear-gradient(135deg,#1a1a1a,#101010);transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease}
+.feature-row:hover{transform:translateY(-2px);border-color:#555;background:linear-gradient(135deg,#222,#121212);box-shadow:0 10px 24px #0007}
+.feature-row:first-of-type{border-top:1px solid #292929}
+.feature-icon{flex:none;width:46px;height:46px;border-radius:14px;background:linear-gradient(145deg,#333,#191919);border:1px solid #414141;color:#fff;box-shadow:inset 0 1px #ffffff12;font-size:21px}
+.feature-row:nth-of-type(2) .feature-icon{background:linear-gradient(145deg,#3a2020,#191111);border-color:#593030}
+.feature-row:nth-of-type(3) .feature-icon{background:linear-gradient(145deg,#252525,#111);border-color:#454545}
+.feature-row b{font-size:14px;color:#f5f5f5;letter-spacing:-.01em}
+.feature-row p{margin-top:4px;color:#a1a1a1;font-size:12px;line-height:1.45}
+.open-link{flex:none;border:1px solid #444;border-radius:10px;padding:8px 11px;background:#252525;color:#f4f4f4;font-weight:700;transition:background .18s,border-color .18s,transform .18s}
+.open-link:hover{background:#383838;border-color:#666;color:#fff;transform:translateX(2px)}
+@media(max-width:650px){.feature-row{padding:12px;gap:10px}.feature-icon{width:40px;height:40px}.open-link{padding:7px 9px}}
+
+
+/* ESOK AI section: reference-inspired black chat workspace */
+.ai-page{padding:0!important;max-width:none!important;margin:0!important;min-height:calc(100vh - 44px);display:grid;grid-template-columns:248px minmax(0,1fr);background:#090909;border:1px solid #242424;border-radius:16px;overflow:hidden;color:#f5f5f5}
+.ai-sidebar{height:calc(100vh - 46px);min-height:560px;position:sticky;top:0;padding:18px 10px 12px;background:#171717;border-right:1px solid #292929;display:flex;flex-direction:column;gap:22px;overflow:auto}
+.ai-brand{display:flex;align-items:center;justify-content:space-between;padding:0 8px 1px;font-size:20px;font-weight:750;letter-spacing:-.04em}.ai-brand-actions{display:flex;gap:10px;color:#aaa;font-size:17px}
+.ai-side-action{width:100%;display:flex;align-items:center;gap:10px;border:0;border-radius:11px;background:transparent;color:#e7e7e7;text-align:left;padding:10px 11px;font-size:13px;transition:background .15s}.ai-side-action:hover{background:#282828}.ai-side-action.active{background:#303030}.ai-side-label{font-size:11px;font-weight:700;color:#bdbdbd;padding:0 8px;margin-bottom:5px}.ai-history{display:flex;flex-direction:column;gap:3px}.ai-history-item{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border:0;background:transparent;color:#dedede;text-align:left;padding:9px 10px;border-radius:9px;font-size:12px}.ai-history-item:hover{background:#262626}.ai-side-bottom{margin-top:auto}.ai-account{display:flex;align-items:center;gap:9px;padding:12px 8px 4px;border-top:1px solid #303030;font-size:12px}.ai-account-dot{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:#333;color:#fff}
+.ai-main{min-width:0;min-height:calc(100vh - 46px);padding:14px clamp(14px,3vw,36px) 16px;display:flex;flex-direction:column;background:#090909}.ai-topbar{display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:0 0 8px}.ai-top-title{display:none}.ai-new-chat{display:none}.ai-workspace{width:100%;max-width:760px;flex:1;min-height:calc(100vh - 110px);margin:0 auto;display:flex;flex-direction:column}.ai-thread{flex:1;min-height:300px;padding:20px 8px 24px;display:flex;flex-direction:column;gap:26px}.ai-empty-state{margin:auto;text-align:center;width:100%;padding:30px 0 52px}.ai-empty-logo{display:none}.ai-empty-state h2{font-size:clamp(25px,3vw,32px);letter-spacing:-.035em;margin:0 0 28px;color:#f5f5f5;font-weight:650}.ai-empty-state p{display:none}.ai-starters{display:none}.ai-chat-message{display:grid;grid-template-columns:34px minmax(0,1fr);gap:13px;align-items:start;max-width:100%;animation:aiMessageIn .2s ease}.ai-chat-avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:850;background:#292929;border:1px solid #383838;color:#f4f4f4}.ai-chat-message.assistant .ai-chat-avatar{background:#347df0;color:#fff;border:0}.ai-chat-content{min-width:0;padding:4px 0 0;color:#f1f1f1;font-size:14px;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere}.ai-chat-message.user{grid-template-columns:minmax(0,1fr) 34px;align-self:flex-end;width:100%;max-width:100%;}.ai-chat-message.user .ai-chat-avatar{grid-column:2;grid-row:1;justify-self:end}.ai-chat-message.user .ai-chat-content{grid-column:1;grid-row:1;justify-self:end;background:#202020;border:1px solid #303030;border-radius:18px;padding:11px 15px;max-width:min(100%,620px);line-height:1.6}.ai-chat-message.thinking .ai-chat-content{color:#aaa}.ai-chat-message.error .ai-chat-content{color:#ffaaa5}.ai-composer-wrap{position:sticky;bottom:0;padding:12px 0 8px;background:linear-gradient(180deg,transparent,#090909 15%);margin-top:auto}.ai-composer{display:flex;align-items:flex-end;gap:10px;padding:10px 11px 10px 20px;background:#1d1d1d;border:1px solid #292929;border-radius:28px;box-shadow:0 8px 35px #0004;transition:border-color .18s,box-shadow .18s}.ai-composer:focus-within{border-color:#444;box-shadow:0 0 0 3px #ffffff08,0 8px 35px #0004}.ai-composer textarea{display:block;flex:1;min-width:0;max-height:180px;resize:none;border:0;outline:0;background:transparent;color:#f5f5f5;padding:8px 0;line-height:1.5;font-size:14px}.ai-composer textarea::placeholder{color:#858585}.ai-composer button{flex:none;width:36px;height:36px;border:0;border-radius:50%;background:#555b66;color:#111;font-size:23px;line-height:1;font-weight:700;display:grid;place-items:center;transition:transform .16s,filter .16s}.ai-composer button:hover{filter:brightness(1.18);transform:scale(1.04)}.ai-composer button:disabled{opacity:.45;cursor:wait}.ai-disclaimer{text-align:center;color:#777;font-size:10px;margin:9px 0 0}.light .ai-page{background:#fafafa;color:#111}.light .ai-sidebar{background:#f0f0f0;border-color:#ddd}.light .ai-side-action,.light .ai-history-item,.light .ai-account{color:#222}.light .ai-side-action:hover,.light .ai-history-item:hover{background:#ddd}.light .ai-main{background:#fafafa}.light .ai-empty-state h2,.light .ai-chat-content{color:#111}.light .ai-composer{background:#fff;border-color:#ddd}.light .ai-composer textarea{color:#111}.light .ai-composer button{background:#222;color:#fff}.light .ai-chat-message.user .ai-chat-content{background:#eee;border-color:#ddd}.light .ai-disclaimer{color:#666}
+@keyframes aiMessageIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:760px){.ai-page{grid-template-columns:190px minmax(0,1fr)}.ai-sidebar{padding:14px 7px}.ai-brand{font-size:17px}.ai-side-action{font-size:12px;padding:9px 8px}.ai-main{padding:12px}.ai-workspace{min-height:calc(100vh - 120px)}}
+@media(max-width:540px){.ai-page{grid-template-columns:58px minmax(0,1fr)}.ai-sidebar{padding:12px 5px;align-items:center}.ai-brand{font-size:0;padding:0}.ai-brand:before{content:'E';font-size:20px}.ai-brand-actions,.ai-side-label,.ai-history,.ai-side-action span,.ai-account span:last-child{display:none}.ai-side-action{justify-content:center;padding:11px 0;font-size:0}.ai-side-action:before{content:attr(data-icon);font-size:17px}.ai-account{justify-content:center;padding:10px 0}.ai-main{padding:10px}.ai-thread{padding:18px 2px}.ai-chat-message{grid-template-columns:28px minmax(0,1fr);gap:9px}.ai-chat-message.user{grid-template-columns:minmax(0,1fr) 28px}.ai-chat-avatar{width:27px;height:27px}}
+</style>
+
+<style id="esok-expanded-customization-css">
+:root{--esok-ui-scale:1;--esok-glass:rgba(5,17,35,.76)}
+body{font-size:calc(15px * var(--esok-ui-scale));background-color:var(--bg)!important;background-image:var(--esok-wallpaper,radial-gradient(ellipse at 58% -15%,#153c70 0%,transparent 48%))!important;background-size:cover!important;background-position:center!important;background-attachment:fixed!important}
+.app{grid-template-columns:var(--esok-sidebar-width,246px) minmax(0,1fr)!important}
+.sidebar{background:color-mix(in srgb,var(--esok-glass-color,#051123) var(--esok-glass-opacity,76%),transparent)!important;backdrop-filter:blur(18px)}
+.panel,.info-card,.feature-card,.search,.ai-sidebar,.ai-chat-area{border-radius:var(--radius)!important}
+.panel{background:var(--panel)!important;color:var(--text)}
+.setting-row input[type=color]{width:52px;height:34px;border:1px solid var(--line);border-radius:8px;background:transparent;padding:2px;cursor:pointer}
+.setting-row input[type=range]{width:min(190px,35vw);accent-color:var(--blue)}
+.setting-row select,.wallpaper-controls input{max-width:230px;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px}
+.wallpaper-row{align-items:flex-start}.wallpaper-controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;max-width:520px}.wallpaper-controls input[type=url]{min-width:210px}.wallpaper-controls input[type=file]{max-width:220px;font-size:12px}
+.wallpaper-controls button,.setting-actions button{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:9px;padding:9px 12px}
+.setting-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}.setting-actions span{font-size:12px;color:var(--muted)}
+#page-settings .panel{margin-bottom:18px}#page-settings .setting-row{gap:18px}
+body.light{--bg:#eef3fa;--panel:#fff;--panel2:#e4ebf5;--line:#cbd7e7;--text:#172338;--muted:#53657d;color:var(--text)}
+body.light .sidebar{background:rgba(245,248,253,.88)!important}body.light .nav-btn{color:#43536a}body.light .nav-btn.active{color:#14233a}body.light .status{color:#43536a;background:#fff}
+@media(max-width:760px){.app{grid-template-columns:76px minmax(0,1fr)!important}.sidebar{padding:18px 8px}.brand{justify-content:center;padding:0}.brand>div:not(.logo),.nav-label,.nav-btn:not(.active){font-size:0}.nav-btn{justify-content:center;padding:12px 6px}.nav-icon{font-size:18px}.profile>div:not(.avatar){display:none}.wallpaper-controls{justify-content:flex-start}}
+</style>
+
+<style id="esok-macos-liquid-glass">
+:root{--mac-glass:rgba(245,246,255,.23);--mac-glass-border:rgba(255,255,255,.38);--mac-blur:26px}
+body.macos-mode{overflow:hidden!important;background:
+ radial-gradient(ellipse at 12% 18%,rgba(255,119,173,.82),transparent 34%),
+ radial-gradient(ellipse at 82% 16%,rgba(255,205,219,.9),transparent 38%),
+ radial-gradient(ellipse at 55% 85%,rgba(104,45,204,.92),transparent 48%),
+ linear-gradient(135deg,#9d32a8 0%,#d58bb5 45%,#6c36c6 100%)!important}
+body.macos-mode .sidebar{display:none!important}
+body.macos-mode .main{position:fixed!important;z-index:3;top:48px;left:5vw;right:5vw;bottom:98px;height:auto;overflow:auto;
+ padding:22px clamp(16px,3vw,42px)!important;border:1px solid var(--mac-glass-border);
+ border-radius:20px;background:rgba(22,22,30,.62)!important;
+ -webkit-backdrop-filter:blur(var(--mac-blur)) saturate(165%);
+ backdrop-filter:blur(var(--mac-blur)) saturate(165%);
+ box-shadow:0 28px 90px rgba(25,8,55,.30),inset 0 1px 0 rgba(255,255,255,.24)}
+body.macos-mode .main:before{content:"";position:fixed;pointer-events:none;inset:48px 5vw 98px;border-radius:20px;
+ background:linear-gradient(145deg,rgba(255,255,255,.10),transparent 42%);z-index:4}
+body.macos-mode .topline{position:relative;z-index:5}
+body.macos-mode .status,body.macos-mode .quick,body.macos-mode .panel,body.macos-mode .tile,body.macos-mode .search{
+ -webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);
+ background:rgba(255,255,255,.10)!important;border-color:rgba(255,255,255,.2)!important}
+body.macos-mode .main,body.macos-mode .main *{--mac-text:#fff}
+body.macos-mode .main{color:#fff}
+body.macos-mode .crumb,body.macos-mode .section-title,body.macos-mode .subtitle,body.macos-mode .hint,
+body.macos-mode .section-note,body.macos-mode .page-heading p,body.macos-mode .panel p{color:rgba(255,255,255,.76)!important}
+body.macos-mode #esokMacMenu{display:flex}
+body.macos-mode #esokMacDock{display:flex}
+#esokMacMenu{display:none;position:fixed;z-index:10020;left:0;right:0;top:0;height:34px;padding:0 22px;
+ align-items:center;justify-content:space-between;color:#fff;font-size:12px;font-weight:600;
+ background:rgba(255,255,255,.24);border-bottom:1px solid rgba(255,255,255,.2);
+ -webkit-backdrop-filter:blur(24px) saturate(170%);backdrop-filter:blur(24px) saturate(170%)}
+.mac-menu-left,.mac-menu-right{display:flex;align-items:center;gap:20px}.mac-menu-left strong{font-size:13px}
+#esokMacDock{display:none;position:fixed;z-index:10021;left:50%;bottom:13px;transform:translateX(-50%);
+ align-items:flex-end;gap:8px;padding:9px 12px 7px;border:1px solid rgba(255,255,255,.42);border-radius:22px;
+ background:rgba(245,245,255,.28);box-shadow:0 12px 42px rgba(24,8,56,.25),inset 0 1px rgba(255,255,255,.42);
+ -webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%)}
+#esokMacDock button{position:relative;width:52px;height:58px;border:0;background:transparent;padding:0;color:#fff;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:transform .18s ease}
+#esokMacDock button:hover{transform:translateY(-9px) scale(1.12)}
+#esokMacDock button small{font-size:9px;opacity:.92;text-shadow:0 1px 5px #333}
+.mac-dock-icon{width:43px;height:43px;border-radius:12px;display:grid;place-items:center;font-size:27px;
+ background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(205,216,245,.78));color:#46516c;
+ border:1px solid rgba(255,255,255,.72);box-shadow:0 5px 12px rgba(30,20,65,.22),inset 0 1px 2px #fff}
+#esokMacDock button:nth-child(5) .mac-dock-icon{background:linear-gradient(145deg,#70c9ff,#5678e8);color:white}
+.mac-dock-divider{height:42px;width:1px;background:rgba(255,255,255,.65);margin:0 3px 8px}
+body.macos-mode .page-view{min-height:100%}
+body.macos-mode .ai-page{background:rgba(15,15,22,.42)!important}
+body.macos-mode .ai-sidebar{background:rgba(10,10,18,.42)!important;backdrop-filter:blur(20px)}
+body.macos-mode .ai-main{background:rgba(18,18,26,.30)!important}
+body.macos-mode .ai-composer{background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.28)!important}
+body.macos-mode .ai-composer textarea{color:#fff!important}
+body.macos-mode .ai-composer textarea::placeholder{color:rgba(255,255,255,.65)!important}
+body.macos-mode .ai-topbar{background:transparent!important}
+body.macos-mode .page-view.hidden{display:none!important}
+body.macos-mode .main .page-view{position:relative;z-index:5}
+@media(max-width:700px){
+ body.macos-mode .main{left:8px;right:8px;top:42px;bottom:90px;padding:14px!important}
+ body.macos-mode .main:before{inset:42px 8px 90px}
+ #esokMacMenu{padding:0 10px}.mac-menu-left{gap:10px}.mac-menu-left span:nth-of-type(n+3){display:none}
+ #esokMacDock{max-width:calc(100vw - 16px);gap:2px;padding:7px 6px}
+ #esokMacDock button{width:43px}.mac-dock-icon{width:36px;height:36px;font-size:22px}
+}
+body.macos-mode.glass-off #esokMacMenu,body.macos-mode.glass-off #esokMacDock,
+body.macos-mode.glass-off .main{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+body.macos-mode.glass-off #esokMacMenu,body.macos-mode.glass-off #esokMacDock{background:rgba(30,30,38,.94)}
+body.macos-mode.glass-off .main{background:rgba(20,20,26,.96)!important}
+</style>
+
+
+<style id="esok-draggable-windows-and-vector-dock">
+#esokMacDock .mac-dock-icon{display:grid;place-items:center;overflow:hidden}
+#esokMacDock .mac-dock-icon svg{width:39px;height:39px;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.16))}
+#esokMacDock .logo-search{background:linear-gradient(145deg,#f9fbff,#b6d7f8);color:#3975bc}
+#esokMacDock .logo-games{background:linear-gradient(145deg,#f7f8ff,#cbd6ff)}
+#esokMacDock .logo-music{background:linear-gradient(145deg,#fff0f7,#f4b8d7)}
+#esokMacDock .logo-movies{background:linear-gradient(145deg,#fff,#d6e4ff)}
+#esokMacDock .logo-ai{background:linear-gradient(145deg,#6bc9ff,#5475eb);color:white}
+#esokMacDock .logo-settings{background:linear-gradient(145deg,#e5eaf4,#9caac4)}
+body.macos-mode .main{cursor:default;will-change:left,top}
+.esok-window-titlebar{height:38px;margin:-8px -12px 14px;padding:0 12px;display:flex;align-items:center;gap:13px;
+ border-bottom:1px solid rgba(255,255,255,.18);border-radius:13px 13px 0 0;
+ background:rgba(255,255,255,.09);color:rgba(255,255,255,.92);position:relative;z-index:10;
+ cursor:grab;user-select:none;touch-action:none}
+.esok-window-titlebar:active{cursor:grabbing}
+.window-controls{display:flex;gap:7px}
+.window-controls i{width:11px;height:11px;border-radius:50%;display:block;background:#ff6058;border:1px solid rgba(0,0,0,.12)}
+.window-controls i:nth-child(2){background:#ffbd2e}.window-controls i:nth-child(3){background:#28c840}
+#esokWindowTitle{font-size:12px;font-weight:650;letter-spacing:.01em}
+.window-drag-hint{margin-left:auto;font-size:10px;color:rgba(255,255,255,.48)}
+body:not(.macos-mode) .esok-window-titlebar{display:none}
+body.macos-mode .main.window-dragging{transition:none!important;user-select:none}
+@media(max-width:700px){.esok-window-titlebar{margin:-4px -5px 12px}.window-drag-hint{display:none}}
+</style>
+
+
+<style id="esok-startup-and-authentic-liquid-glass">
+#esok-startup{position:fixed;inset:0;z-index:20000;display:grid;place-items:center;overflow:auto;padding:28px 18px;background:radial-gradient(ellipse at 18% 12%,rgba(79,155,255,.38),transparent 38%),radial-gradient(ellipse at 82% 85%,rgba(164,102,255,.34),transparent 42%),linear-gradient(145deg,#080e1e,#101d39 48%,#111127);color:#f8fbff;opacity:1;visibility:visible;transition:opacity .35s ease,visibility .35s ease}
+#esok-startup.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.startup-orb{position:absolute;width:min(70vw,680px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(95,169,255,.14),rgba(104,91,255,.06) 48%,transparent 70%);filter:blur(8px);pointer-events:none}
+.startup-content{position:relative;width:min(780px,100%);text-align:center}
+.startup-brand{display:flex;align-items:center;justify-content:center;gap:11px;font-size:18px;font-weight:800;letter-spacing:.19em;margin-bottom:38px}
+.startup-mark{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:linear-gradient(145deg,#83d8ff,#527bff 65%,#9a78ff);box-shadow:0 8px 28px #4a91ff55;font-size:19px;letter-spacing:0}
+.startup-eyebrow{font-size:10px;font-weight:800;letter-spacing:.24em;color:#a9caff;margin:0 0 12px}
+#esok-startup-title{font-size:clamp(30px,5vw,48px);letter-spacing:-.045em;line-height:1.08;margin:0 0 12px;color:#fff}
+.startup-subtitle{color:#b7c6df;font-size:14px;margin:0 0 30px}
+.startup-choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left}
+.startup-choice{position:relative;display:flex;flex-direction:column;gap:17px;min-width:0;padding:13px;border:1px solid rgba(255,255,255,.19);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.055));color:#fff;text-align:left;box-shadow:0 18px 55px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.22);backdrop-filter:blur(26px) saturate(170%);-webkit-backdrop-filter:blur(26px) saturate(170%);transition:transform .2s,border-color .2s,background .2s;cursor:pointer}
+.startup-choice:hover{transform:translateY(-5px);border-color:rgba(165,210,255,.65);background:linear-gradient(145deg,rgba(255,255,255,.2),rgba(255,255,255,.08))}
+.choice-preview{height:145px;position:relative;display:block;overflow:hidden;border-radius:13px;border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px rgba(255,255,255,.3)}
+.desktop-preview{background:radial-gradient(ellipse at 20% 85%,#f38bcb 0,transparent 43%),radial-gradient(ellipse at 75% 22%,#61c5ff 0,transparent 43%),linear-gradient(135deg,#172d68,#6246a2 55%,#1b3262)}
+.preview-menu{position:absolute;left:0;right:0;top:0;height:13px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);border-bottom:1px solid #ffffff55}
+.preview-window{position:absolute;left:18%;right:18%;top:29px;bottom:27px;border:1px solid #ffffff8c;border-radius:9px;background:rgba(255,255,255,.23);backdrop-filter:blur(16px);box-shadow:0 7px 22px #08112b55;padding:8px;display:flex;gap:4px;align-items:flex-start}
+.preview-window i{width:6px;height:6px;border-radius:50%;background:#ff655d}.preview-window i:nth-child(2){background:#ffbd45}.preview-window i:nth-child(3){background:#35c96a}
+.preview-dock{position:absolute;left:34%;right:34%;bottom:6px;height:14px;border-radius:7px;background:#ffffff70;border:1px solid #ffffff88;display:flex;align-items:center;justify-content:center;gap:4px;backdrop-filter:blur(12px)}.preview-dock b{width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,#fff,#8cc9ff)}
+.browser-preview{background:linear-gradient(145deg,#101a2d,#1e3453)}.browser-bar{position:absolute;left:0;right:0;top:0;height:23px;background:#ffffff19;border-bottom:1px solid #ffffff25;padding:8px;display:flex;gap:4px}.browser-bar i{width:6px;height:6px;border-radius:50%;background:#ff655d}.browser-bar i:nth-child(2){background:#ffbd45}.browser-bar i:nth-child(3){background:#35c96a}.browser-search{position:absolute;left:18%;right:18%;top:50px;height:20px;border-radius:9px;background:#ffffff20;border:1px solid #ffffff28}.browser-cards{position:absolute;left:15%;right:15%;top:84px;display:flex;gap:7px}.browser-cards b{height:36px;flex:1;border-radius:7px;background:linear-gradient(145deg,#ffffff30,#ffffff0b);border:1px solid #ffffff25}
+.choice-copy{display:block;padding:0 5px 3px}.choice-copy strong{display:block;font-size:17px;margin-bottom:5px}.choice-copy small{display:block;color:#b7c6df;font-size:12px;line-height:1.5;max-width:290px}.choice-arrow{position:absolute;right:18px;bottom:21px;color:#a9d4ff;font-size:18px}
+.startup-footnote{color:#8296b8;font-size:11px;margin:22px 0 0}
+@media(max-width:620px){.startup-choices{grid-template-columns:1fr}.startup-choice{flex-direction:row;align-items:center;gap:12px}.choice-preview{width:38%;height:100px;flex:none}.choice-copy strong{font-size:15px}.choice-copy small{font-size:11px}.choice-arrow{right:15px;bottom:13px}}
+/* More convincing macOS desktop wallpaper and layered Liquid Glass. */
+body.macos-mode{background-image:var(--esok-wallpaper)!important;background-color:#11152e!important;background-size:cover!important;background-position:center!important;background-attachment:fixed!important}
+body.macos-mode .main{background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.105) 38%,rgba(24,27,48,.36))!important;border:1px solid rgba(255,255,255,.42)!important;border-radius:17px!important;box-shadow:0 34px 100px rgba(0,0,0,.36),0 8px 28px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.48),inset 0 -1px 0 rgba(255,255,255,.10)!important;backdrop-filter:blur(38px) saturate(190%) contrast(108%)!important;-webkit-backdrop-filter:blur(38px) saturate(190%) contrast(108%)!important}
+body.macos-mode .main:after{content:"";position:fixed;inset:0;border-radius:17px;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.17),transparent 26%,transparent 72%,rgba(255,255,255,.07));z-index:4}
+body.macos-mode #esokMacMenu{height:36px;background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.19))!important;border-bottom:1px solid rgba(255,255,255,.38)!important;box-shadow:0 2px 14px rgba(0,0,0,.10);backdrop-filter:blur(34px) saturate(190%)!important;-webkit-backdrop-filter:blur(34px) saturate(190%)!important;text-shadow:0 1px 3px rgba(0,0,0,.22)}
+body.macos-mode #esokMacDock{bottom:12px;padding:8px 11px 6px;border-radius:25px;background:linear-gradient(145deg,rgba(255,255,255,.48),rgba(255,255,255,.19))!important;border:1px solid rgba(255,255,255,.62)!important;box-shadow:0 18px 48px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(255,255,255,.16)!important;backdrop-filter:blur(42px) saturate(210%)!important;-webkit-backdrop-filter:blur(42px) saturate(210%)!important}
+body.macos-mode .mac-dock-icon{box-shadow:0 7px 16px rgba(0,0,0,.22),inset 0 1px 2px rgba(255,255,255,.95)!important;border:1px solid rgba(255,255,255,.7)!important}
+body.macos-mode .esok-window-titlebar{background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.07))!important;border-bottom:1px solid rgba(255,255,255,.24)!important;backdrop-filter:blur(20px) saturate(180%)}
+body.macos-mode .status,body.macos-mode .quick,body.macos-mode .panel,body.macos-mode .tile,body.macos-mode .search,body.macos-mode .info-card,body.macos-mode .lumin-panel{background:linear-gradient(145deg,rgba(255,255,255,.19),rgba(255,255,255,.075))!important;border:1px solid rgba(255,255,255,.24)!important;box-shadow:0 8px 25px rgba(0,0,0,.10),inset 0 1px rgba(255,255,255,.2)!important;backdrop-filter:blur(24px) saturate(175%)!important;-webkit-backdrop-filter:blur(24px) saturate(175%)!important}
+body.macos-mode .search input,body.macos-mode .ai-composer textarea{color:#fff!important}
+body.macos-mode .search input::placeholder,body.macos-mode .ai-composer textarea::placeholder{color:rgba(255,255,255,.68)!important}
+body.macos-mode.glass-off .main,body.macos-mode.glass-off #esokMacMenu,body.macos-mode.glass-off #esokMacDock{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+</style>
+
+</head>
+<body>
+<div id="esok-loader" role="status" aria-label="Loading ESOK">
+  <div class="loader-inner">
+    <div class="loader-symbol">E</div>
+    <div class="loader-word" id="loaderWord" aria-label="ESOK"></div>
+    <div class="loader-caption">Preparing your search space</div>
+    <div class="loader-track"><div class="loader-progress"></div></div>
+  </div>
+</div>
+<div id="esok-startup" role="dialog" aria-modal="true" aria-labelledby="esok-startup-title">
+  <div class="startup-orb" aria-hidden="true"></div>
+  <div class="startup-content">
+    <div class="startup-brand"><span class="startup-mark">E</span><span>ESOK</span></div>
+    <p class="startup-eyebrow">YOUR SPACE, YOUR WAY</p>
+    <h1 id="esok-startup-title">How do you want to start?</h1>
+    <p class="startup-subtitle">Choose your workspace. You can switch styles later in Settings.</p>
+    <div class="startup-choices">
+      <button type="button" class="startup-choice" id="startDesktop">
+        <span class="choice-preview desktop-preview"><span class="preview-menu"></span><span class="preview-window"><i></i><i></i><i></i></span><span class="preview-dock"><b></b><b></b><b></b><b></b></span></span>
+        <span class="choice-copy"><strong>Desktop</strong><small>A macOS-inspired ESOK desktop with Liquid Glass, app windows and a floating dock.</small></span><span class="choice-arrow">↗</span>
+      </button>
+      <button type="button" class="startup-choice" id="startBrowser">
+        <span class="choice-preview browser-preview"><span class="browser-bar"><i></i><i></i><i></i></span><span class="browser-search"></span><span class="browser-cards"><b></b><b></b><b></b></span></span>
+        <span class="choice-copy"><strong>Browser</strong><small>The original ESOK website with Search, AI, Games and customization.</small></span><span class="choice-arrow">↗</span>
+      </button>
+    </div>
+    <p class="startup-footnote">This screen appears every time ESOK opens.</p>
+  </div>
+</div>
+<div class="app">
+<aside class="sidebar">
+  <a href="#home" class="brand" aria-label="ESOK home"><div class="logo">E</div><div><div class="brand-name">ESOK</div><div class="brand-sub">Search & explore</div></div></a>
+  <div><div class="nav-label">Explore</div><nav class="nav" id="nav">
+    <button class="nav-btn active" data-page="home"><span class="nav-icon">⌕</span>Search</button>
+    <button class="nav-btn" data-page="games"><span class="nav-icon games-icon"><span class="games-outline-fallback" aria-hidden="true">♞</span></span>Games</button>
+    <button class="nav-btn" data-page="music"><span class="nav-icon">♫</span>Music</button>
+    <button class="nav-btn" data-page="movies"><span class="nav-icon">▣</span>Movies</button>
+    <button class="nav-btn" data-page="ai"><span class="nav-icon">✧</span>ESOK AI</button>
+  </nav></div>
+  <div><div class="nav-label">Personalize</div><nav class="nav"><button class="nav-btn" data-page="settings"><span class="nav-icon">⚙</span>Settings</button></nav></div>
+  <div class="side-bottom"><div class="profile"><div class="avatar">E</div><div><strong style="font-size:13px">Guest</strong><small>Your ESOK space</small></div></div></div>
+</aside>
+<main class="main is-closed">
+  <div id="esokWindowTitlebar" class="esok-window-titlebar"><span class="tl"><b data-w="close" data-g="×"></b><b data-w="min" data-g="−"></b><b data-w="zoom" data-g="+"></b></span><strong id="esokWindowTitle">Search</strong></div>
+  <div class="topline"><div class="crumb" id="breadcrumb">Home / Search</div><div class="top-actions"><span class="status">● All systems ready</span><div class="tiny-avatar">E</div></div></div>
+  <div class="content">
+    <section id="page-home" class="home page-view">
+      <header class="hero"><div class="hero-logo" id="heroLogo" aria-label="ESOK"></div></header>
+      <form class="search-wrap" id="webSearch" action="https://www.google.com/search" method="get" target="_blank"><div class="search"><span class="search-glass">⌕</span><input id="query" name="q" autocomplete="off" placeholder="Search the web or enter a URL…" aria-label="Search the web"><button type="submit">Search ↗</button></div><div class="hint">Press <kbd>Enter ↵</kbd> to search the web</div></form>
+      <div class="quick-title"><span class="section-title">Quick launch</span><span class="section-note">Your favorites, one click away</span></div>
+      <div class="quick-grid">
+        <a class="quick" href="https://www.youtube.com/" target="_blank" rel="noopener"><span class="quick-icon brand-icon youtube"><span class="brand-mark">▶</span></span><span><b>YouTube</b><small>Watch videos</small></span></a>
+        <a class="quick" href="https://www.wikipedia.org/" target="_blank" rel="noopener"><span class="quick-icon brand-icon wikipedia"><span class="brand-mark">W</span></span><span><b>Wikipedia</b><small>Explore knowledge</small></span></a>
+        <a class="quick" href="https://github.com/" target="_blank" rel="noopener"><span class="quick-icon brand-icon github"><span class="brand-mark">●</span></span><span><b>GitHub</b><small>Build something</small></span></a>
+        <a class="quick" href="https://open.spotify.com/" target="_blank" rel="noopener"><span class="quick-icon brand-icon spotify"><span class="brand-mark">≋</span></span><span><b>Spotify</b><small>Listen to music</small></span></a>
+        <button class="quick" data-go="games" style="text-align:left"><span class="quick-icon games-icon"><span class="games-outline-fallback" aria-hidden="true">♞</span></span><span><b>Games</b><small>Find your next play</small></span></button>
+      </div>
+      <div class="lower-grid"><section class="info-card"><div class="card-head"><h2>Explore ESOK</h2><span>Made for you</span></div>
+        <div class="feature-row"><div class="feature-icon">✧</div><div><b>ESOK AI</b><p>Get help, ideas, and quick explanations.</p></div><button class="open-link" data-go="ai">Open →</button></div>
+        <div class="feature-row"><div class="feature-icon">▣</div><div><b>Movies & shows</b><p>Discover streaming and video services.</p></div><button class="open-link" data-go="movies">Explore →</button></div>
+        <div class="feature-row"><div class="feature-icon">⚙</div><div><b>Make it yours</b><p>Adjust the appearance of your search page.</p></div><button class="open-link" data-go="settings">Settings →</button></div>
+      </section><section class="info-card"><div class="card-head"><h2>A little inspiration</h2><span>Daily pick</span></div><div style="font-size:25px;margin:7px 0 12px">✦ <span style="color:#8dc9ff">Curiosity</span></div><p style="color:#91aaca;font-size:13px;margin:0 0 18px">The best discoveries often start with one small question. Search for something you have always wanted to understand.</p><button class="open-link" data-focus-search style="border:0;background:transparent;padding:0">Start exploring ↗</button></section></div>
+      <div class="footer">ESOK · A fresh place to start on the web</div>
+    </section>
+    <section id="page-games" class="page page-view hidden">
+      <div class="page-heading"><div class="big-icon games-icon"><span class="games-outline-fallback" aria-hidden="true">♞</span></div><div><h1>Games</h1><p>Browse games available in the ESOK game library.</p></div></div>
+      <div class="lumin-panel"><div class="lumin-heading"><div><h2>Game library</h2><p>Choose a game from the available catalog.</p></div><span class="lumin-badge">ESOK ARCADE</span></div>
+        <div id="luminStatus" class="lumin-status" role="status">Loading game library…</div>
+        <div id="luminGames" class="lumin-games"></div>
+      </div>
+    </section>
+    <section id="page-music" class="page page-view hidden"><div class="page-heading"><div class="big-icon">♫</div><div><h1>Music</h1><p>Your next track is only a click away.</p></div></div><div class="tiles">
+      <article class="tile"><div class="tile-emoji">🟢</div><h3>Spotify</h3><p>Play playlists, albums, and podcasts.</p><a href="https://open.spotify.com/" target="_blank" rel="noopener">Open Spotify ↗</a></article>
+      <article class="tile"><div class="tile-emoji">▶️</div><h3>YouTube Music</h3><p>Discover music and mixes.</p><a href="https://music.youtube.com/" target="_blank" rel="noopener">Listen now ↗</a></article>
+      <article class="tile"><div class="tile-emoji">🎧</div><h3>SoundCloud</h3><p>Find emerging artists and remixes.</p><a href="https://soundcloud.com/" target="_blank" rel="noopener">Explore SoundCloud ↗</a></article>
+      </div></section>
+    <section id="page-movies" class="page page-view hidden"><div class="page-heading"><div class="big-icon">▣</div><div><h1>Movies & shows</h1><p>Explore video platforms and find something to watch.</p></div></div><div class="tiles">
+      <article class="tile"><div class="tile-emoji">▶️</div><h3>YouTube</h3><p>Trailers, creators, documentaries, and more.</p><a href="https://www.youtube.com/" target="_blank" rel="noopener">Open YouTube ↗</a></article>
+      <article class="tile"><div class="tile-emoji">🍿</div><h3>JustWatch</h3><p>Find where a movie or show is streaming.</p><a href="https://www.justwatch.com/" target="_blank" rel="noopener">Find a title ↗</a></article>
+      <article class="tile"><div class="tile-emoji">🎞️</div><h3>Internet Archive</h3><p>Explore films and other public collections.</p><a href="https://archive.org/details/movies" target="_blank" rel="noopener">Browse films ↗</a></article>
+      </div></section>
+    <section id="page-ai" class="page page-view hidden ai-page">
+      <aside class="ai-sidebar" aria-label="ESOK AI navigation">
+        <div class="ai-brand"><span>ESOK AI</span><span class="ai-brand-actions">☼　◫</span></div>
+        <button type="button" class="ai-side-action active" id="aiNewChat" data-icon="＋"><span>＋　Start new</span></button>
+        <button type="button" class="ai-side-action" id="aiSearchChats" data-icon="⌕"><span>⌕　Search chats</span></button>
+        <button type="button" class="ai-side-action" id="aiFilesAction" data-icon="▤"><span>▤　Files &amp; documents</span></button>
+        <button type="button" class="ai-side-action" id="aiProjectsAction" data-icon="▱"><span>▱　Projects</span></button>
+        <button type="button" class="ai-side-action" id="aiImagesAction" data-icon="▧"><span>▧　Images</span></button>
+        <div><div class="ai-side-label">My chats</div><div class="ai-history" id="aiHistory"><div class="ai-history-item" style="color:#888">Your chats will appear here</div></div></div>
+        <div class="ai-side-bottom"><button type="button" class="ai-side-action" id="aiFeedbackAction" data-icon="♧"><span>♧　Share feedback</span></button><div class="ai-account"><span class="ai-account-dot">E</span><span>ESOK Guest<br><span style="color:#888;font-size:10px">Your AI workspace</span></span></div></div>
+      </aside>
+      <div class="ai-main"><div class="ai-topbar"><button type="button" class="ai-new-chat" title="Start a new chat">＋ <span>New chat</span></button></div>
+        <div class="ai-workspace"><div class="ai-thread" id="aiThread" aria-live="polite">
+          <div class="ai-empty-state" id="aiEmptyState"><div class="ai-empty-logo">E</div><h2>How can I help you?</h2><p>Ask a question, explore an idea, or work through a problem.</p></div>
+        </div><div class="ai-composer-wrap"><form class="ai-composer" id="aiForm"><textarea id="aiPrompt" rows="1" placeholder="Ask anything…" autocomplete="off" aria-label="Ask anything"></textarea><button type="submit" aria-label="Send message" title="Send message">↑</button></form><p class="ai-disclaimer">ESOK AI can make mistakes. Check important information.</p></div></div>
+      </div>
+    </section>
+    <section id="page-settings" class="page page-view hidden"><div class="page-heading"><div class="big-icon">⚙</div><div><h1>Settings</h1><p>Adjust the look of your ESOK search page.</p></div></div><div class="panel"><h2>Appearance</h2><p>Make the page feel more like yours. Changes apply immediately and are saved on this device.</p>
+<div class="setting-row"><div><strong>Operating system style</strong><small>Switch between the classic ESOK website and a macOS-inspired desktop.</small></div><select id="osModeSelect"><option value="website">Classic ESOK website</option><option value="macos">macOS Desktop</option></select></div>
+<div class="setting-row"><div><strong>Liquid Glass</strong><small>Use translucent glass surfaces, blur, and soft highlights.</small></div><select id="liquidGlassSelect"><option value="on">Enabled</option><option value="off">Disabled</option></select></div>
+
+<div class="setting-row"><div><strong>Color theme</strong><small>Choose a complete color preset.</small></div><select id="themeSelect"><option value="dark">Midnight Blue</option><option value="black">Obsidian Black</option><option value="light">Cloudlight</option><option value="purple">Royal Night</option><option value="green">Evergreen</option><option value="rose">Blossom</option></select></div>
+<div class="setting-row"><div><strong>Accent color</strong><small>Change highlights, links, and active controls.</small></div><input type="color" id="accentColor" value="#398bff" aria-label="Accent color"></div>
+<div class="setting-row"><div><strong>Page background</strong><small>Set your own background color.</small></div><input type="color" id="pageBgColor" value="#071326" aria-label="Page background color"></div>
+<div class="setting-row"><div><strong>Panel color</strong><small>Customize cards, search fields, and panels.</small></div><input type="color" id="panelColor" value="#0c1d36" aria-label="Panel color"></div>
+<div class="setting-row"><div><strong>Text color</strong><small>Choose the main text color.</small></div><input type="color" id="textColor" value="#edf5ff" aria-label="Text color"></div>
+<div class="setting-row"><div><strong>Interface size</strong><small>Scale the overall interface.</small></div><input type="range" id="uiScale" min="85" max="115" value="100"><output id="uiScaleValue">100%</output></div>
+<div class="setting-row"><div><strong>Corner roundness</strong><small>Adjust the shape of cards and controls.</small></div><input type="range" id="roundness" min="8" max="28" value="20"><output id="roundnessValue">20px</output></div>
+<div class="setting-row"><div><strong>Sidebar width</strong><small>Make the navigation narrower or wider.</small></div><input type="range" id="sidebarWidth" min="190" max="310" value="246"><output id="sidebarWidthValue">246px</output></div>
+<div class="setting-row"><div><strong>Glass transparency</strong><small>Adjust the see-through effect on the sidebar.</small></div><input type="range" id="glassOpacity" min="35" max="100" value="76"><output id="glassOpacityValue">76%</output></div>
+<div class="setting-row wallpaper-row"><div><strong>Custom wallpaper</strong><small>Use an image from your device or paste an image URL.</small></div><div class="wallpaper-controls"><input type="file" id="wallpaperFile" accept="image/*"><input type="url" id="wallpaperUrl" placeholder="https://example.com/image.jpg"><button type="button" id="applyWallpaper">Apply URL</button><button type="button" id="clearWallpaper">Remove</button></div></div>
+<div class="setting-actions"><button type="button" id="resetAppearance">Reset appearance</button><span id="settingsSaved" role="status">Changes save automatically</span></div>
+</div><div class="panel"><h2>Search</h2><p>Choose the search provider used by the main search bar.</p><div class="setting-row"><div><strong>Search engine</strong><small>Used when you submit a search.</small></div><select id="engineSelect"><option value="https://www.google.com/search?q=">Google</option><option value="https://www.bing.com/search?q=">Bing</option><option value="https://duckduckgo.com/?q=">DuckDuckGo</option></select></div></div></section>
+  </div>
+</main>
+</div>
+
+<div id="esokMacMenu" aria-hidden="true">
+ <div class="mm-l"><button class="mm-i" data-m="sys" aria-label="ESOK menu"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6z"/></svg></button><button class="mm-i mm-b" data-m="ESOK">ESOK</button><button class="mm-i" data-m="File">File</button><button class="mm-i" data-m="Edit">Edit</button><button class="mm-i" data-m="View">View</button><button class="mm-i" data-m="Go">Go</button><button class="mm-i" data-m="Window">Window</button><button class="mm-i" data-m="Help">Help</button></div>
+ <div class="mm-r"><span class="mm-ic"><svg width="22" height="12" viewBox="0 0 22 12"><rect x=".5" y=".5" width="18" height="11" rx="3" fill="none" stroke="#fff" opacity=".6"/><rect x="2" y="2" width="12" height="8" rx="1.6" fill="#fff"/><path d="M20 4v4" stroke="#fff" opacity=".6" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="mm-ic"><svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"><path d="M1.5 4.2a9.5 9.5 0 0 1 13 0M4 7a6 6 0 0 1 8 0"/><circle cx="8" cy="10" r="1" fill="#fff" stroke="none"/></svg></span><button id="mmSearch" aria-label="Spotlight"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="4.7"/><path d="M10 10l4.5 4.5"/></svg></button><button id="mmCC" aria-label="Control Center"><svg width="15" height="13" viewBox="0 0 16 14" fill="none" stroke="#fff" stroke-width="1.4"><rect x=".7" y=".7" width="14.6" height="5" rx="2.5"/><circle cx="11.3" cy="3.2" r="1.6" fill="#fff" stroke="none"/><rect x=".7" y="8.3" width="14.6" height="5" rx="2.5"/><circle cx="4.7" cy="10.8" r="1.6" fill="#fff" stroke="none"/></svg></button><span id="mmClock"></span></div>
+</div>
+<div id="esokWidgets" aria-label="Desktop widgets">
+ <div class="wg wg-s"><svg viewBox="0 0 100 100" width="142" height="142" style="display:block;margin:auto"><circle cx="50" cy="50" r="48" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.25)" stroke-width=".6"/><g id="wgTicks" stroke="#fff" stroke-linecap="round"></g><line id="hH" x1="50" y1="50" x2="50" y2="29" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/><line id="hM" x1="50" y1="50" x2="50" y2="17" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><line id="hS" x1="50" y1="57" x2="50" y2="12" stroke="#ff9f0a" stroke-width="1"/><circle cx="50" cy="50" r="2.6" fill="#ff9f0a"/></svg></div>
+ <div class="wg wg-s wg-date"><div id="wdW"></div><div id="wdD"></div><div id="wdM"></div><div id="wdT"></div></div>
+ <div class="wg wg-m" id="wgCal"></div>
+ <div class="wg wg-m wg-note" id="wgNote"><div class="wn-h">Notes</div><textarea id="wnText" placeholder="Type a note…" spellcheck="false"></textarea></div>
+</div>
+<div id="mmDrop"></div>
+<div id="ccPanel"><button class="cc-t on" id="ccGlass"><i>◐</i><span>Liquid Glass</span></button><button class="cc-t" id="ccBrowser"><i>▭</i><span>Switch to Browser Mode</span></button><div class="cc-s">Display<input id="ccDim" type="range" min="40" max="100" value="100"></div><div class="cc-s" style="margin-top:8px">Wallpaper<div id="ccWp"></div></div></div>
+<div id="spot"><div class="sp-box"><div class="sp-in"><svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".7"><circle cx="6.5" cy="6.5" r="4.7"/><path d="M10 10l4.5 4.5"/></svg><input id="spIn" placeholder="Spotlight Search" autocomplete="off"></div><div id="spRes"></div></div></div>
+<div id="esokMacDock" aria-label="ESOK app dock">
+  <button type="button" data-mac-page="home" title="Search"><span class="mac-dock-icon logo-search"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="21" cy="21" r="12" fill="none" stroke="currentColor" stroke-width="4"/><path d="M30 30l10 10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M21 13l3 8-8 3z" fill="#54aaff"/></svg></span><small>Search</small></button>
+  <button type="button" data-mac-page="games" title="Games"><span class="mac-dock-icon logo-games"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 15h22c5 0 8 4 9 10l2 9c1 5-5 8-9 4l-6-6H17l-6 6c-4 4-10 1-9-4l2-9c1-6 4-10 9-10z" fill="#fff"/><path d="M13 22v10M8 27h10" stroke="#4267c8" stroke-width="3" stroke-linecap="round"/><circle cx="34" cy="24" r="2.5" fill="#ee5b85"/><circle cx="39" cy="29" r="2.5" fill="#5aa7f8"/></svg></span><small>Games</small></button>
+  <button type="button" data-mac-page="music" title="Music"><span class="mac-dock-icon logo-music"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M28 9v24.5a7 7 0 1 1-4-6.3V16l17-4v17.5a7 7 0 1 1-4-6.3V8z" fill="#fff"/><path d="M28 9v24.5a7 7 0 1 1-4-6.3V16l17-4" fill="none" stroke="#e24f9b" stroke-width="2"/></svg></span><small>Music</small></button>
+  <button type="button" data-mac-page="movies" title="Movies"><span class="mac-dock-icon logo-movies"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="10" width="34" height="28" rx="6" fill="#fff"/><path d="M21 17l13 7-13 7z" fill="#ee557a"/><path d="M7 17h34M7 31h34" stroke="#aab5d5" stroke-width="2"/></svg></span><small>Movies</small></button>
+  <button type="button" data-mac-page="ai" title="ESOK AI"><span class="mac-dock-icon logo-ai"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4l4.8 14.2L43 24l-14.2 5.8L24 44l-5.8-14.2L4 24l14.2-5.8z" fill="#fff"/><circle cx="36" cy="10" r="3" fill="#bdeaff"/></svg></span><small>ESOK AI</small></button>
+  <i class="mac-dock-divider"></i>
+  <button type="button" data-mac-page="settings" title="Settings"><span class="mac-dock-icon logo-settings"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M20 4h8l1.5 5.5 4 1.7 5-2.7 5.7 5.7-2.7 5 1.7 4L48 25v8l-5.5 1.5-1.7 4 2.7 5-5.7 5.7-5-2.7-4 1.7L27 54h-8l-1.5-5.5-4-1.7-5 2.7L2.8 43.8l2.7-5-1.7-4L-2 33v-8l5.5-1.5 1.7-4-2.7-5 5.7-5.7 5 2.7 4-1.7z" transform="translate(2 -3) scale(.92)" fill="#9aa8c6"/><circle cx="24" cy="24" r="8" fill="#56617a" stroke="#fff" stroke-width="3"/></svg></span><small>Settings</small></button>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
+<div id="gameModal" class="game-modal hidden" role="dialog" aria-modal="true" aria-labelledby="gameModalTitle">
+  <div class="game-modal-card"><div class="game-modal-head"><strong id="gameModalTitle">ESOK Game</strong><button type="button" id="closeGameModal" aria-label="Close game">✕ Close</button></div><iframe id="gameModalFrame" title="Playable local game" allow="fullscreen"></iframe></div>
+</div>
+<style>
+.lumin-panel{width:100%;max-width:1200px;min-height:300px;padding:22px;border:1px solid rgba(86,137,196,.2);border-radius:20px;background:linear-gradient(145deg,rgba(14,35,62,.88),rgba(9,26,47,.92));box-shadow:0 16px 42px rgba(0,0,0,.18);backdrop-filter:blur(12px)}
+.lumin-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.lumin-heading h2{margin:0 0 5px;font-size:16px;color:var(--text);letter-spacing:-.01em}.lumin-heading p{margin:0;color:var(--muted);font-size:13px}.lumin-badge{font-size:10px;letter-spacing:.12em;font-weight:800;color:#a9d6ff;border:1px solid rgba(76,151,255,.28);background:linear-gradient(120deg,rgba(46,123,244,.2),rgba(46,123,244,.07));padding:8px 11px;border-radius:999px;white-space:nowrap}.lumin-status{padding:10px 13px;margin:0 0 14px;border:1px solid rgba(86,137,196,.15);border-radius:11px;background:rgba(11,32,60,.72);color:#9fc9f3;font-size:12px}.lumin-status:empty{display:none}.lumin-games{min-height:160px;color:var(--text)}.lumin-games:empty{display:none}
+.game-modal{position:fixed;inset:0;z-index:9999;background:rgba(1,8,20,.82);backdrop-filter:blur(9px);display:grid;place-items:center;padding:20px}.game-modal.hidden{display:none}.game-modal-card{width:min(1000px,96vw);height:min(760px,92vh);background:#07152e;border:1px solid #285184;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 100px #0009}.game-modal-head{height:54px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#0b1d38;color:#edf5ff;border-bottom:1px solid #25456d}.game-modal-head button{background:#17375c;border:1px solid #315783;border-radius:9px;padding:7px 12px;color:#fff}#gameModalFrame{width:100%;height:100%;border:0;background:#07152e;flex:1}@media(max-width:600px){.game-modal{padding:8px}.game-modal-card{width:100%;height:94vh}}
+</style>
+
+<script>
+// Startup screen types ESOK in large capitals, then fades away.
+(()=>{
+  const loader=document.getElementById('esok-loader');
+  const wordEl=document.getElementById('loaderWord');
+  const word='ESOK'; let i=0;
+  const type=()=>{ if(i<word.length){wordEl.textContent+=word[i++];setTimeout(type,180);} };
+  setTimeout(type,180);
+  window.addEventListener('load',()=>setTimeout(()=>loader?.classList.add('loader-hidden'),2100),{once:true});
+  // Fallback for locally opened files if load has already fired.
+  setTimeout(()=>loader?.classList.add('loader-hidden'),2800);
+})();
+const heroLogo=document.getElementById('heroLogo');
+// Type the large ESOK wordmark on every page load.
+if(heroLogo){
+  const word='ESOK';
+  heroLogo.textContent='';
+  heroLogo.classList.remove('done');
+  let letter=0;
+  const typeNext=()=>{
+    if(letter < word.length){ heroLogo.textContent += word[letter++]; setTimeout(typeNext, 240); }
+    else { heroLogo.classList.add('done'); }
+  };
+  setTimeout(typeNext, 350);
+}
+const navButtons=[...document.querySelectorAll('[data-page]')];let currentPage='home';
+function go(page){if(!document.getElementById('page-'+page))return;currentPage=page;document.querySelectorAll('.page-view').forEach(el=>el.classList.toggle('hidden',el.id!=='page-'+page));navButtons.forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.getElementById('breadcrumb').textContent='Home / '+({home:'Search',games:'Games',music:'Music',movies:'Movies',ai:'ESOK AI',settings:'Settings'}[page]||page);window.scrollTo({top:0,behavior:'smooth'});}
+
+navButtons.forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));document.querySelectorAll('[data-focus-search]').forEach(b=>b.addEventListener('click',()=>{go('home');setTimeout(()=>document.getElementById('query').focus(),100)}));
+const engineSelect=document.getElementById('engineSelect');
+const webSearch=document.getElementById('webSearch');
+const queryInput=document.getElementById('query');
+// Use a normal browser form submission so the search works from both the button and Enter.
+function syncSearchEngine(){
+  const base=engineSelect.value;
+  webSearch.action=base;
+  queryInput.name='q';
+  webSearch.target='_blank';
+}
+engineSelect.addEventListener('change',syncSearchEngine);
+syncSearchEngine();
+window.esokProxy=function(entered){const u=new URL('scramjet-client/index.html',location.href);u.searchParams.set('goto',entered);u.searchParams.set('engine',engineSelect.value);location.assign(u.href)};
+webSearch.addEventListener('submit',e=>{
+  e.preventDefault();
+  const q=queryInput.value.trim();
+  if(!q){queryInput.focus();return;}
+  window.esokProxy(q);
+});
+document.getElementById('themeSelect').addEventListener('change',e=>{document.body.classList.toggle('light',e.target.value==='light');});document.getElementById('accentColor').addEventListener('input',e=>{document.documentElement.style.setProperty('--blue',e.target.value);document.documentElement.style.setProperty('--glow',e.target.value+'38');document.querySelectorAll('.search button,.ai-input button').forEach(b=>b.style.background=e.target.value);});
+
+const aiConversation = [];
+const aiHistory = document.getElementById('aiHistory');
+function addAiHistory(title){ if(!aiHistory)return; if(aiHistory.querySelector('[style]')) aiHistory.innerHTML=''; const item=document.createElement('button'); item.type='button'; item.className='ai-history-item'; item.textContent=title.slice(0,42); item.title=title; item.addEventListener('click',()=>{aiPrompt.focus();}); aiHistory.prepend(item); while(aiHistory.children.length>8) aiHistory.lastElementChild.remove(); }
+const aiForm = document.getElementById('aiForm');
+const aiPrompt = document.getElementById('aiPrompt');
+const aiThread = document.getElementById('aiThread');
+const aiSendButton = aiForm.querySelector('button');
+
+function addAiMessage(role, content, extraClass='') {
+  const row = document.createElement('div');
+  row.className = 'ai-chat-message ' + role + (extraClass ? ' ' + extraClass : '');
+  const avatar = document.createElement('div');
+  avatar.className = 'ai-chat-avatar';
+  avatar.textContent = role === 'user' ? 'You' : 'E';
+  const body = document.createElement('div');
+  body.className = 'ai-chat-content';
+  body.textContent = content;
+  row.append(avatar, body);
+  aiThread.appendChild(row);
+  row.scrollIntoView({behavior:'smooth', block:'end'});
+  return {row, body};
+}
+
+async function sendAiMessage() {
+  const prompt = aiPrompt.value.trim();
+  if (!prompt || aiSendButton.disabled) return;
+  if (prompt.length > 4000) {
+    addAiMessage('assistant', 'Please keep each message under 4,000 characters.', 'error');
+    return;
+  }
+  document.getElementById('aiEmptyState')?.remove();
+  if(aiConversation.length===0) addAiHistory(prompt);
+  aiConversation.push({ role: 'user', content: prompt });
+  const userMessage = addAiMessage('user', prompt);
+  aiPrompt.value = '';
+  aiPrompt.style.height = 'auto';
+  aiPrompt.disabled = true;
+  aiSendButton.disabled = true;
+  aiSendButton.textContent = '…';
+  const thinking = addAiMessage('assistant', 'Thinking…', 'thinking');
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: aiConversation })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+    if (!data.reply || typeof data.reply !== 'string') throw new Error('The AI service returned an empty reply.');
+    aiConversation.push({ role: 'assistant', content: data.reply });
+    thinking.row.classList.remove('thinking');
+    thinking.body.textContent = data.reply;
+  } catch (err) {
+    aiConversation.pop();
+    userMessage.row.remove();
+    thinking.row.classList.add('error');
+    thinking.row.classList.remove('thinking');
+    thinking.body.textContent = 'ESOK AI could not respond. ' + (err.message || 'Please try again later.');
+  } finally {
+    aiPrompt.disabled = false;
+    aiSendButton.disabled = false;
+    aiSendButton.textContent = '↑';
+    aiPrompt.focus();
+  }
+}
+
+aiForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  await sendAiMessage();
+});
+aiPrompt.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.keyCode === 13) && !e.shiftKey && !e.isComposing) { e.preventDefault(); sendAiMessage(); }
+});
+aiPrompt.addEventListener('input', () => {
+  aiPrompt.style.height = 'auto';
+  aiPrompt.style.height = Math.min(aiPrompt.scrollHeight, 180) + 'px';
+});
+document.querySelectorAll('[data-ai-starter]').forEach(btn => btn.addEventListener('click', () => {
+  aiPrompt.value = btn.dataset.aiStarter || '';
+  aiPrompt.focus();
+  aiPrompt.style.height = 'auto';
+  aiPrompt.style.height = Math.min(aiPrompt.scrollHeight, 180) + 'px';
+}));
+document.getElementById('aiNewChat')?.addEventListener('click', () => {
+  aiConversation.length = 0;
+  aiThread.innerHTML = '';
+  document.querySelectorAll('.ai-side-action').forEach(b=>b.classList.remove('active'));
+  document.getElementById('aiNewChat').classList.add('active');
+  const empty = document.createElement('div');
+  empty.className = 'ai-empty-state';
+  empty.id = 'aiEmptyState';
+  empty.innerHTML = '<div class="ai-empty-logo">E</div><h2>What can I help with?</h2><p>Ask a question, explore an idea, or work through a problem.</p><div class="ai-starters"><button type="button" data-ai-starter="Explain a science topic in simple terms">Explain a topic</button><button type="button" data-ai-starter="Help me solve a math problem step by step">Help with math</button><button type="button" data-ai-starter="Help me brainstorm ideas for a project">Brainstorm ideas</button></div>';
+  aiThread.appendChild(empty);
+  empty.querySelectorAll('[data-ai-starter]').forEach(btn => btn.addEventListener('click', () => { aiPrompt.value=btn.dataset.aiStarter; aiPrompt.focus(); }));
+  aiPrompt.value = '';
+  aiPrompt.focus();
+});
+
+document.getElementById('aiSearchChats')?.addEventListener('click',()=>{const q=prompt('Search your recent chats:');if(!q)return;const items=[...document.querySelectorAll('.ai-history-item')];let found=0;items.forEach(i=>{i.style.display=i.textContent.toLowerCase().includes(q.toLowerCase())?'block':'none';if(i.style.display==='block')found++;});if(!found)toast('No matching recent chats.');});
+['aiFilesAction','aiProjectsAction','aiImagesAction','aiFeedbackAction'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>toast('This section is not connected yet.')));
+let toastTimer;function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.add('hidden'),2200)}
+document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();go('home');document.getElementById('query').focus()}});
+</script>
+<script id="esok-lumin-loader">
+(()=>{
+  const status=document.getElementById('luminStatus');
+  const container=document.getElementById('luminGames');
+  let state='idle';
+  function setStatus(message){ if(status) status.textContent=message; }
+  function loadSdk(){
+    if(window.Lumin) return Promise.resolve();
+    if(window.__esokLuminScriptPromise) return window.__esokLuminScriptPromise;
+    window.__esokLuminScriptPromise=new Promise((resolve,reject)=>{
+      const script=document.createElement('script');
+      script.src='https://cdn.jsdelivr.net/gh/luminsdk/script@latest/lumin.min.js';
+      script.async=true;
+      script.onload=()=>window.Lumin?resolve():reject(new Error('SDK script loaded but the Lumin object was not created.'));
+      script.onerror=()=>reject(new Error('The LuminSDK script was blocked or could not download.'));
+      document.head.appendChild(script);
+    });
+    return window.__esokLuminScriptPromise;
+  }
+  async function startLumin(){
+    if(!container || state==='loading' || state==='ready') return;
+    state='loading';
+    setStatus('Loading LuminSDK…');
+    try{
+      await loadSdk();
+      setStatus('Connecting to the Lumin game catalog…');
+      // Use the documented minimal configuration first to avoid unsupported options.
+      await window.Lumin.init({
+        container:'#luminGames',
+        theme:'dark',
+        columns:5,
+        rows:4,
+        onReady:()=>setStatus('Lumin is ready — choose a game below.'),
+        onError:(err)=>setStatus('Lumin could not load the catalog: '+(err?.message||String(err||'unknown error')))
+      });
+      state='ready';
+      // Some SDK builds report ready while returning no visible catalog cards.
+      // If that happens, render a clearly labelled online fallback catalog.
+      setTimeout(()=>{
+        if(!container) return;
+        const hasGames=container.children.length>0 && container.textContent.trim().length>0;
+        if(!hasGames){
+          setStatus('The Lumin catalog returned no games. Here are online games you can try instead:');
+          container.innerHTML = `
+            <div class="esok-online-fallback">
+              <a class="esok-online-game" href="https://slopegame.online/" target="_blank" rel="noopener noreferrer"><span class="game-emoji">🟣</span><strong>Slope</strong><span>Guide a rolling ball through a fast 3D course.</span></a>
+              <a class="esok-online-game" href="https://run3.io/" target="_blank" rel="noopener noreferrer"><span class="game-emoji">🏃</span><strong>Run 3</strong><span>Run and jump through space tunnels.</span></a>
+              <a class="esok-online-game" href="https://www.chess.com/play/computer" target="_blank" rel="noopener noreferrer"><span class="game-emoji">♟️</span><strong>Chess</strong><span>Play a game of chess against the computer.</span></a>
+              <a class="esok-online-game" href="https://cookieclicker.com/" target="_blank" rel="noopener noreferrer"><span class="game-emoji">🍪</span><strong>Cookie Clicker</strong><span>Build a cookie empire one click at a time.</span></a>
+              <a class="esok-online-game" href="https://www.crazygames.com/game/tag" target="_blank" rel="noopener noreferrer"><span class="game-emoji">🎮</span><strong>More games</strong><span>Browse a larger online game catalog.</span></a>
+            </div>
+            <p class="esok-online-note">These are external online games, not built-in local games. They require internet access and may be blocked by your network.</p>`;
+        }else{
+          setStatus('Lumin is ready — choose a game below.');
+        }
+      },700);
+      setStatus('Checking the game catalog…');
+    }catch(err){
+      state='idle';
+      const detail=(err && err.message) ? err.message : String(err||'unknown error');
+      setStatus('Lumin startup failed: '+detail+'. This may be a blocked network request or a Lumin service boot error. Try opening ESOK while connected to the internet, then refresh.');
+      console.error('ESOK Lumin startup error:',err);
+    }
+  }
+  document.querySelectorAll('[data-page="games"],[data-go="games"]').forEach(el=>el.addEventListener('click',()=>setTimeout(startLumin,100)));
+  if(container && !document.getElementById('page-games')?.classList.contains('hidden')) startLumin();
+  window.esokStartLumin=startLumin;
+})();
+</script>
+<script id="esok-local-game-launcher">(function(){const modal=document.getElementById('gameModal'),frame=document.getElementById('gameModalFrame'),title=document.getElementById('gameModalTitle');function show(){if(!modal)return;modal.classList.remove('hidden');document.body.style.overflow='hidden'}function launchUrl(url,label){if(!url||!modal||!frame)return;title.textContent=label||'ESOK Game';frame.srcdoc='';frame.src=url;show()}function close(){if(!modal||!frame)return;modal.classList.add('hidden');frame.srcdoc='';frame.removeAttribute('src');document.body.style.overflow=''}document.addEventListener('click',e=>{const btn=e.target.closest('[data-local-url]');if(btn){e.preventDefault();launchUrl(btn.dataset.localUrl,btn.dataset.localTitle||'ESOK Game')}});const closeButton=document.getElementById('closeGameModal');if(closeButton)closeButton.addEventListener('click',close);if(modal)modal.addEventListener('click',e=>{if(e.target===modal)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal&&!modal.classList.contains('hidden'))close()})})();</script><script id="esok-customization-engine">
+(()=>{
+ const $=id=>document.getElementById(id); const root=document.documentElement, body=document.body;
+ const defaults={theme:'dark',accent:'#398bff',bg:'#071326',panel:'#0c1d36',text:'#edf5ff',scale:100,round:20,sidebar:246,glass:76,wallpaper:'',engine:'https://www.google.com/search?q='};
+ let saved={};try{saved=JSON.parse(localStorage.getItem('esok-customization-v2')||'{}')||{}}catch{}
+ const state={...defaults,...saved};
+ const presets={dark:{bg:'#071326',panel:'#0c1d36',text:'#edf5ff',accent:'#398bff'},black:{bg:'#080809',panel:'#121214',text:'#f2f2f4',accent:'#65a9ff'},light:{bg:'#edf2f8',panel:'#ffffff',text:'#172338',accent:'#347fe8'},purple:{bg:'#100b20',panel:'#211637',text:'#f4edff',accent:'#a78bfa'},green:{bg:'#081b16',panel:'#102b22',text:'#e8fff3',accent:'#42c98a'},rose:{bg:'#211019',panel:'#321b28',text:'#fff0f5',accent:'#ff82ad'}};
+ function save(){try{localStorage.setItem('esok-customization-v2',JSON.stringify(state));const n=$('settingsSaved');if(n)n.textContent='Saved on this device';}catch{const n=$('settingsSaved');if(n)n.textContent='Could not save wallpaper: image may be too large';}}
+ function apply(){
+  const p=presets[state.theme]||presets.dark;
+  const bg=state.bg||p.bg, panel=state.panel||p.panel, txt=state.text||p.text;
+  root.style.setProperty('--bg',bg);root.style.setProperty('--panel',panel);root.style.setProperty('--panel2',mix(panel,bg,.35));root.style.setProperty('--text',txt);root.style.setProperty('--blue',state.accent||p.accent);root.style.setProperty('--glow',(state.accent||p.accent)+'38');root.style.setProperty('--line',mix(panel,state.accent||p.accent,.35));root.style.setProperty('--radius',(state.round||20)+'px');root.style.setProperty('--esok-ui-scale',(state.scale||100)/100);root.style.setProperty('--esok-sidebar-width',(state.sidebar||246)+'px');root.style.setProperty('--esok-glass-opacity',(state.glass||76)+'%');root.style.setProperty('--esok-glass-color',bg);
+  body.classList.toggle('light',state.theme==='light');root.style.setProperty('--esok-wallpaper',state.wallpaper?`linear-gradient(#0005,#0005),url("${state.wallpaper}")`:'radial-gradient(ellipse at 58% -15%,#153c70 0%,transparent 48%)');
+  if($('themeSelect'))$('themeSelect').value=state.theme;if($('accentColor'))$('accentColor').value=state.accent;if($('pageBgColor'))$('pageBgColor').value=state.bg;if($('panelColor'))$('panelColor').value=state.panel;if($('textColor'))$('textColor').value=state.text;
+  for(const [id,val,suffix] of [['uiScale',state.scale,'%'],['roundness',state.round,'px'],['sidebarWidth',state.sidebar,'px'],['glassOpacity',state.glass,'%']]){if($(id))$(id).value=val;const out=$(id+'Value');if(out)out.textContent=val+suffix;}
+  if($('engineSelect'))$('engineSelect').value=state.engine;
+ }
+ function mix(a,b,t){const x=a.match(/[\da-f]{2}/gi);const y=b.match(/[\da-f]{2}/gi);if(!x||!y)return a;return '#'+x.slice(0,3).map((v,i)=>Math.round(parseInt(v,16)*(1-t)+parseInt(y[i],16)*t).toString(16).padStart(2,'0')).join('');}
+ function bind(id,key,transform=v=>v){const el=$(id);if(!el)return;el.addEventListener('input',()=>{state[key]=transform(el.value);apply();save()});el.addEventListener('change',()=>{state[key]=transform(el.value);apply();save()});}
+ $('themeSelect')?.addEventListener('change',e=>{state.theme=e.target.value;const p=presets[state.theme];state.bg=p.bg;state.panel=p.panel;state.text=p.text;state.accent=p.accent;apply();save()});
+ bind('accentColor','accent');bind('pageBgColor','bg');bind('panelColor','panel');bind('textColor','text');bind('uiScale','scale',Number);bind('roundness','round',Number);bind('sidebarWidth','sidebar',Number);bind('glassOpacity','glass',Number);
+ $('engineSelect')?.addEventListener('change',e=>{state.engine=e.target.value;save()});
+ $('wallpaperFile')?.addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/'))return; if(f.size>2500000){alert('Please choose an image under 2.5 MB so it can be saved in your browser.');e.target.value='';return;}const reader=new FileReader();reader.onload=()=>{state.wallpaper=reader.result;apply();save()};reader.readAsDataURL(f)});
+ $('applyWallpaper')?.addEventListener('click',()=>{const u=$('wallpaperUrl').value.trim();if(!u)return;try{const url=new URL(u);if(!['http:','https:'].includes(url.protocol))throw 0;state.wallpaper=url.href;apply();save()}catch{alert('Enter a valid http or https image URL.')}});
+ $('clearWallpaper')?.addEventListener('click',()=>{state.wallpaper='';if($('wallpaperUrl'))$('wallpaperUrl').value='';if($('wallpaperFile'))$('wallpaperFile').value='';apply();save()});
+ $('resetAppearance')?.addEventListener('click',()=>{Object.assign(state,defaults);apply();save()});
+ // Re-apply saved values after the original page's theme handlers have initialized.
+ apply();
+})();
+</script>
+
+<script id="esok-macos-mode-controller">
+(()=>{
+ const mode=document.getElementById('osModeSelect');
+ const glass=document.getElementById('liquidGlassSelect');
+ const clock=document.getElementById('esokMacClock');
+ let saved={};try{saved=JSON.parse(localStorage.getItem('esok-macos-preferences')||'{}')||{}}catch{}
+ const state={mode:saved.mode||'website',glass:saved.glass!==false};
+ const startup=document.getElementById('esok-startup');
+ function save(){try{localStorage.setItem('esok-macos-preferences',JSON.stringify(state))}catch{}}
+ function apply(){
+   document.body.classList.toggle('macos-mode',state.mode==='macos');
+   document.body.classList.toggle('glass-off',!state.glass);
+   if(mode)mode.value=state.mode;
+   if(glass)glass.value=state.glass?'on':'off';
+   document.getElementById('esokMacMenu')?.setAttribute('aria-hidden',state.mode!=='macos'?'true':'false');
+ }
+ mode?.addEventListener('change',e=>{state.mode=e.target.value;apply();save()});
+ function choose(modeName){state.mode=modeName;apply();save();startup?.classList.add('is-hidden');}
+ document.getElementById('startDesktop')?.addEventListener('click',()=>choose('macos'));
+ document.getElementById('startBrowser')?.addEventListener('click',()=>choose('website'));
+ // Always start at the chooser; never auto-enter the previously selected mode.
+ startup?.classList.remove('is-hidden');
+ glass?.addEventListener('change',e=>{state.glass=e.target.value==='on';apply();save()});
+ document.querySelectorAll('[data-mac-page]').forEach(b=>b.addEventListener('click',()=>{
+   if(typeof window.go==='function')window.go(b.dataset.macPage);
+   else document.querySelector(`[data-page="${b.dataset.macPage}"]`)?.click();
+ }));
+ function tick(){if(clock)clock.textContent=new Intl.DateTimeFormat(undefined,{hour:'numeric',minute:'2-digit'}).format(new Date())}
+ tick();setInterval(tick,30000);apply();
+})();
+</script>
+
+
+
+
+<style id="esok-macos-real">
+html body.macos-mode{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Segoe UI",system-ui,sans-serif!important;-webkit-font-smoothing:antialiased;background-color:#1a1a3a!important;background-size:cover!important;background-position:center!important;
+background-image:var(--mac-wp,radial-gradient(60% 50% at 18% 28%,#ff7eb3 0,transparent 62%),radial-gradient(55% 60% at 86% 18%,#6fa0ff 0,transparent 62%),radial-gradient(70% 60% at 72% 98%,#ff9a62 0,transparent 62%),radial-gradient(60% 70% at 8% 100%,#6a4cff 0,transparent 62%),linear-gradient(160deg,#2a1a6e,#14306f 52%,#4b1f70))!important}
+body.macos-mode::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;background:#000;opacity:var(--dim,0)}
+body:not(.macos-mode) :is(#mmDrop,#ccPanel,#spot){display:none!important}
+html body.macos-mode #esokMacMenu{display:flex;height:24px!important;padding:0 6px!important;border:0!important;background:rgba(20,20,28,.3)!important;-webkit-backdrop-filter:blur(30px) saturate(1.8)!important;backdrop-filter:blur(30px) saturate(1.8)!important;box-shadow:0 .5px 0 rgba(0,0,0,.3)!important;font:500 13px -apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Segoe UI",system-ui,sans-serif;user-select:none}
+.mm-l,.mm-r{display:flex;align-items:center}.mm-r{gap:2px}
+.mm-i,.mm-r button,.mm-ic{height:20px;padding:0 9px;border:0;border-radius:5px;display:flex;align-items:center;background:none;color:#fff;font:inherit}
+.mm-b{font-weight:700}.mm-i:hover,.mm-i.on,.mm-r button:hover{background:rgba(255,255,255,.2)}
+#mmClock{padding:0 9px;color:#fff;white-space:nowrap}
+#mmDrop,#ccPanel{position:fixed;z-index:10030;display:none;color:#fff;background:rgba(40,40,46,.66);-webkit-backdrop-filter:blur(40px) saturate(1.8);backdrop-filter:blur(40px) saturate(1.8);border:.5px solid rgba(255,255,255,.22);box-shadow:0 14px 44px rgba(0,0,0,.45);font:13px -apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Segoe UI",system-ui,sans-serif}
+#mmDrop{top:25px;min-width:230px;padding:5px;border-radius:10px}#mmDrop.show,#ccPanel.show{display:block}
+#mmDrop button{display:flex;width:100%;justify-content:space-between;gap:30px;padding:3px 10px;border:0;border-radius:5px;background:none;color:inherit;font:inherit;text-align:left}
+#mmDrop button:hover{background:#0a84ff}#mmDrop hr{border:0;border-top:.5px solid rgba(255,255,255,.2);margin:5px 8px}#mmDrop kbd{opacity:.6;font:inherit}
+#ccPanel{top:30px;right:10px;width:300px;padding:12px;border-radius:18px}
+.cc-t{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;margin-bottom:8px;border:0;border-radius:14px;background:rgba(255,255,255,.1);color:#fff;font:600 13px system-ui;text-align:left}
+.cc-t i{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;font-style:normal}.cc-t.on i{background:#0a84ff}
+.cc-s{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.1);font:600 12px system-ui}.cc-s input{width:100%;margin-top:8px;accent-color:#fff}
+#spot{position:fixed;inset:0;z-index:10040;display:none}#spot.show{display:block}
+.sp-box{position:absolute;left:50%;top:17vh;transform:translateX(-50%);width:min(680px,92vw);border-radius:18px;overflow:hidden;color:#fff;background:rgba(44,44,50,.7);-webkit-backdrop-filter:blur(50px) saturate(1.8);backdrop-filter:blur(50px) saturate(1.8);border:.5px solid rgba(255,255,255,.25);box-shadow:0 24px 80px rgba(0,0,0,.55)}
+.sp-in{display:flex;align-items:center;gap:12px;padding:14px 18px}.sp-in input{flex:1;background:none;border:0;outline:0;color:#fff;font:300 24px -apple-system,system-ui}
+#spRes{padding:0 8px 8px;max-height:50vh;overflow:auto}#spRes:empty{display:none}
+#spRes button{display:flex;align-items:center;gap:12px;width:100%;padding:9px 12px;border:0;border-radius:8px;background:none;color:#fff;font:14px system-ui;text-align:left}#spRes button.sel{background:#0a84ff}
+html body.macos-mode .main{position:fixed!important;z-index:3;margin:0!important;padding:0!important;overflow:auto;border:0!important;border-radius:12px!important;color:#f5f5f7;
+left:var(--wl,max(8px,calc(50vw - 540px)))!important;top:var(--wt,60px)!important;width:var(--ww,min(1080px,94vw))!important;height:var(--wh,min(720px,calc(100vh - 150px)))!important;right:auto!important;bottom:auto!important;
+background:rgba(30,30,34,.74)!important;-webkit-backdrop-filter:blur(50px) saturate(1.8)!important;backdrop-filter:blur(50px) saturate(1.8)!important;
+box-shadow:0 0 0 .5px rgba(0,0,0,.65),inset 0 0 0 .5px rgba(255,255,255,.16),0 26px 80px rgba(0,0,0,.5),0 8px 24px rgba(0,0,0,.3)!important;
+transition:transform .34s cubic-bezier(.2,.8,.2,1),opacity .25s,box-shadow .25s}
+html body.macos-mode .main:before,html body.macos-mode .main:after{display:none!important}
+html body.macos-mode .main.inactive{box-shadow:0 0 0 .5px rgba(0,0,0,.6),inset 0 0 0 .5px rgba(255,255,255,.1),0 12px 34px rgba(0,0,0,.3)!important}
+.main.geo{transition:left .3s,top .3s,width .3s,height .3s,transform .34s,opacity .25s!important}.main.drag{transition:none!important;user-select:none}
+html body.macos-mode .main.is-min,html body.macos-mode .main.is-closed{opacity:0;pointer-events:none;transform:scale(.88)}html body.macos-mode .main.is-min{transform:scale(.05)}html body.macos-mode .main.is-closed{visibility:hidden;transition:transform .25s,opacity .2s,visibility 0s .25s}
+html body.macos-mode .esok-window-titlebar{position:sticky!important;top:0;z-index:20;height:40px!important;margin:0!important;padding:0 14px!important;display:flex;align-items:center;justify-content:center;border-radius:12px 12px 0 0!important;cursor:default;
+background:rgba(46,46,50,.62)!important;-webkit-backdrop-filter:blur(30px) saturate(1.8)!important;backdrop-filter:blur(30px) saturate(1.8)!important;border-bottom:.5px solid rgba(0,0,0,.55)!important}
+html body.macos-mode #esokWindowTitle{font:600 13px -apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Segoe UI",system-ui,sans-serif;color:#f2f2f7;pointer-events:none}.main.inactive #esokWindowTitle{opacity:.5}
+.tl{position:absolute;left:13px;display:flex;gap:8px}.tl b{width:12px;height:12px;border-radius:50%;display:grid;place-items:center;background:#ff5f57;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.3);font:700 10px/1 system-ui;color:transparent;cursor:default}
+.tl b:nth-child(2){background:#febc2e}.tl b:nth-child(3){background:#28c840}.tl:hover b:before{content:attr(data-g);color:rgba(0,0,0,.6)}.main.inactive .tl b{background:#58585c}
+html body.macos-mode .topline{display:none!important}html body.macos-mode .content{padding:18px 24px 28px!important}
+html body.macos-mode :is(.status,.quick,.panel,.tile,.info-card,.search){background:rgba(255,255,255,.07)!important;border:.5px solid rgba(255,255,255,.13)!important;border-radius:12px!important;box-shadow:none!important}
+html body.macos-mode :is(.quick,.tile):hover{background:rgba(255,255,255,.13)!important}
+html body.macos-mode #esokMacDock{display:flex;align-items:flex-end;bottom:8px!important;gap:6px!important;padding:7px 8px 12px!important;border-radius:22px!important;background:rgba(255,255,255,.2)!important;border:.5px solid rgba(255,255,255,.35)!important;box-shadow:0 10px 36px rgba(0,0,0,.35),inset 0 .5px 0 rgba(255,255,255,.4)!important;-webkit-backdrop-filter:blur(30px) saturate(1.8)!important;backdrop-filter:blur(30px) saturate(1.8)!important}
+#esokMacDock button{position:relative;width:auto!important;height:auto!important;padding:0!important;display:block!important;transform:none!important}#esokMacDock button small{display:none!important}
+#esokMacDock .mac-dock-icon{width:var(--sz,54px)!important;height:var(--sz,54px)!important;border-radius:calc(var(--sz,54px)*.225)!important;border:0!important;transition:width .12s,height .12s;box-shadow:0 2px 6px rgba(0,0,0,.3),inset 0 .5px 0 rgba(255,255,255,.55)!important}
+#esokMacDock .mac-dock-icon svg{width:68%!important;height:68%!important}
+#esokMacDock .logo-search{background:linear-gradient(160deg,#5ac8fa,#0a84ff)!important;color:#fff!important}#esokMacDock .logo-games{background:linear-gradient(160deg,#c084fc,#5e5ce6)!important}
+#esokMacDock .logo-music{background:linear-gradient(160deg,#ff6b81,#fa233b)!important}#esokMacDock .logo-movies{background:linear-gradient(160deg,#48484a,#1c1c1e)!important}
+#esokMacDock .logo-ai{background:linear-gradient(160deg,#64d2ff,#5e5ce6)!important}#esokMacDock .logo-settings{background:linear-gradient(160deg,#d1d1d6,#8e8e93)!important}
+#esokMacDock .mac-dock-divider{height:48px!important;align-self:flex-start;margin:3px 3px 0!important;background:rgba(255,255,255,.3)!important}
+#esokMacDock button:after{content:attr(data-l);position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);padding:3px 11px;border-radius:7px;font:13px system-ui;white-space:nowrap;color:#fff;background:rgba(40,40,46,.82);box-shadow:0 0 0 .5px rgba(255,255,255,.2);opacity:0;pointer-events:none;transition:opacity .12s}
+#esokMacDock button:hover:after{opacity:1}#esokMacDock button.run:before{content:"";position:absolute;left:50%;bottom:-8px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:rgba(255,255,255,.9)}
+@keyframes mbounce{0%,100%{transform:translateY(0)}30%{transform:translateY(-22px)}60%{transform:translateY(0)}80%{transform:translateY(-8px)}}#esokMacDock button.bounce .mac-dock-icon{animation:mbounce .7s ease}
+@media(max-width:700px){html body.macos-mode .main{left:6px!important;top:32px!important;width:calc(100vw - 12px)!important;height:calc(100vh - 130px)!important}}
+
+#esokWidgets{display:none;position:fixed;z-index:2;top:40px;right:16px;width:352px;gap:12px;flex-wrap:wrap;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Segoe UI",system-ui,sans-serif;user-select:none}
+html body.macos-mode #esokWidgets{display:flex}
+.wg{padding:14px;border-radius:22px;overflow:hidden;background:rgba(30,30,36,.42);-webkit-backdrop-filter:blur(30px) saturate(1.8);backdrop-filter:blur(30px) saturate(1.8);border:.5px solid rgba(255,255,255,.2);box-shadow:0 8px 28px rgba(0,0,0,.28)}
+.wg-s{width:170px;height:170px}.wg-m{width:352px;height:170px}
+.wg-date{display:flex;flex-direction:column}#wdW{color:#ff453a;font:700 12px/1 system-ui;text-transform:uppercase;letter-spacing:.04em}
+#wdD{font:300 62px/1.05 system-ui;margin-top:4px}#wdM{font:500 13px system-ui;opacity:.7}#wdT{margin-top:auto;font:600 22px system-ui;font-variant-numeric:tabular-nums}
+.cal-h{color:#ff453a;font:700 12px system-ui;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.cal-g{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;row-gap:1px}.cal-g b{opacity:.5;font-weight:600}
+.cal-g span,.cal-g i,.cal-g b{height:17px;line-height:17px}.cal-g .today{width:17px;margin:0 auto;border-radius:50%;background:#ff453a;font-weight:700}
+.wn-h{color:#ffd60a;font:700 12px system-ui;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+#wnText{width:100%;height:calc(100% - 22px);resize:none;border:0;outline:0;background:none;color:#fff;font:14px/1.4 -apple-system,system-ui,sans-serif;user-select:text}
+#wnText::placeholder{color:rgba(255,255,255,.45)}
+#ccWp{display:flex;gap:8px;margin-top:8px}#ccWp button{width:30px;height:30px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.45)}#ccWp button.on{border-color:#fff;box-shadow:0 0 0 2px #0a84ff}
+@media(max-width:1099px){html body.macos-mode #esokWidgets{display:none}}
+@media(max-height:700px){#wgNote{display:none}}
+@media(min-width:1100px){html body.macos-mode .main{left:var(--wl,24px)!important;width:var(--ww,min(960px,calc(100vw - 420px)))!important}}
+</style>
+<script id="esok-macos-real-js">
+(()=>{
+const $=s=>document.querySelector(s),B=document.body,win=$('.main'),bar=$('#esokWindowTitlebar'),dock=$('#esokMacDock'),drop=$('#mmDrop'),cc=$('#ccPanel'),sp=$('#spot'),si=$('#spIn'),sr=$('#spRes'),crumb=$('#breadcrumb'),title=$('#esokWindowTitle');
+const PAGES={home:'Search',games:'Games',music:'Music',movies:'Movies',ai:'ESOK AI',settings:'Settings'};
+const mac=()=>B.classList.contains('macos-mode'),toast=m=>window.toast&&window.toast(m);
+const cls=c=>win.classList.contains(c);
+function nav(p){if(typeof window.go==='function')window.go(p);else{const b=document.querySelector('[data-page="'+p+'"]');b&&b.click()}openWin()}
+function setMode(m){const s=$('#osModeSelect');if(s){s.value=m;s.dispatchEvent(new Event('change'))}}
+const G=(l,t,w,h)=>{const s=win.style;s.setProperty('--wl',l+'px');s.setProperty('--wt',t+'px');s.setProperty('--ww',w+'px');s.setProperty('--wh',h+'px')};
+function saveGeo(){if(cls('is-zoom'))return;const r=win.getBoundingClientRect();try{localStorage.setItem('esok-mac-geo2',JSON.stringify({l:r.left,t:r.top,w:r.width,h:r.height}))}catch(e){}}
+function geoAnim(){win.classList.add('geo');setTimeout(()=>win.classList.remove('geo'),380)}
+let back=null;
+function openWin(){win.classList.remove('is-closed','is-min','inactive');sync()}
+function closeWin(){win.classList.add('is-closed');sync()}
+function minWin(){const a=dock.querySelector('.run')||dock.querySelector('button'),r=a.getBoundingClientRect(),w=win.getBoundingClientRect();win.style.transformOrigin=(r.left+r.width/2-w.left)+'px '+(r.top-w.top)+'px';win.classList.add('is-min')}
+function zoomWin(){if(cls('is-zoom')){G(back.l,back.t,back.w,back.h);win.classList.remove('is-zoom')}else{const r=win.getBoundingClientRect();back={l:r.left,t:r.top,w:r.width,h:r.height};G(0,24,innerWidth,innerHeight-24-86);win.classList.add('is-zoom')}geoAnim()}
+function sync(){const n=((crumb&&crumb.textContent)||'Search').split('/').pop().trim();title.textContent=n;const k=Object.keys(PAGES).find(x=>PAGES[x]===n)||'home',vis=!cls('is-closed');
+ dock.querySelectorAll('[data-mac-page]').forEach(b=>b.classList.toggle('run',vis&&b.dataset.macPage===k))}
+crumb&&new MutationObserver(sync).observe(crumb,{childList:true,subtree:true,characterData:true});
+try{const g=JSON.parse(localStorage.getItem('esok-mac-geo2')||'null');if(g)G(Math.min(g.l,innerWidth-120),Math.max(24,Math.min(g.t,innerHeight-120)),g.w,g.h)}catch(e){}
+bar.addEventListener('click',e=>{const w=e.target.dataset&&e.target.dataset.w;if(w==='close')closeWin();else if(w==='min')minWin();else if(w==='zoom')zoomWin()});
+bar.addEventListener('dblclick',e=>{if(!(e.target.dataset&&e.target.dataset.w))zoomWin()});
+let d=null;
+bar.addEventListener('pointerdown',e=>{if(e.button||(e.target.dataset&&e.target.dataset.w)||cls('is-zoom')||innerWidth<700)return;const r=win.getBoundingClientRect();d={x:e.clientX,y:e.clientY,l:r.left,t:r.top,w:r.width,h:r.height};bar.setPointerCapture(e.pointerId);win.classList.add('drag');e.preventDefault()});
+bar.addEventListener('pointermove',e=>{if(d)G(Math.min(innerWidth-80,Math.max(80-d.w,d.l+e.clientX-d.x)),Math.min(innerHeight-60,Math.max(24,d.t+e.clientY-d.y)),d.w,d.h)});
+const endDrag=()=>{if(d){d=null;win.classList.remove('drag');saveGeo()}};bar.addEventListener('pointerup',endDrag);bar.addEventListener('pointercancel',endDrag);
+let rz=null;const E=6;
+const edge=e=>{const r=win.getBoundingClientRect();return{l:e.clientX-r.left<E,r:r.right-e.clientX<E,b:r.bottom-e.clientY<E}};
+win.addEventListener('pointermove',e=>{if(rz){const q=rz.q,dx=e.clientX-rz.x,dy=e.clientY-rz.y;let L=q.left,W=q.width,H=q.height;if(rz.r)W=Math.max(520,q.width+dx);if(rz.l){W=Math.max(520,q.width-dx);L=q.right-W}if(rz.b)H=Math.max(360,q.height+dy);G(L,q.top,W,H);return}
+ if(!mac()||cls('is-zoom'))return;const g=edge(e);win.style.cursor=((g.l&&g.b)?'nesw-resize':(g.r&&g.b)?'nwse-resize':(g.l||g.r)?'ew-resize':g.b?'ns-resize':'')});
+win.addEventListener('pointerdown',e=>{if(!mac()||cls('is-zoom')||e.button)return;const g=edge(e);if(g.l||g.r||g.b){rz={...g,x:e.clientX,y:e.clientY,q:win.getBoundingClientRect()};win.setPointerCapture(e.pointerId);win.classList.add('drag');e.preventDefault()}});
+win.addEventListener('pointerup',()=>{if(rz){rz=null;win.classList.remove('drag');saveGeo()}});
+addEventListener('pointerdown',e=>{if(!mac())return;const t=e.target;win.classList.toggle('inactive',!(win.contains(t)||t.closest('#esokMacDock,#ccPanel,#spot .sp-box,#mmDrop')));if(!t.closest('#esokMacMenu,#mmDrop,#ccPanel'))closeMenus()},true);
+// dock
+const btns=[...dock.querySelectorAll('button')],BASE=innerWidth<700?42:54;let C=[];
+const setS=(b,s)=>b.querySelector('.mac-dock-icon').style.setProperty('--sz',(BASE*s)+'px');
+btns.forEach(b=>{b.dataset.l=b.title;b.removeAttribute('title');setS(b,1);b.addEventListener('click',()=>{const off=cls('is-closed')||cls('is-min');if(off){b.classList.remove('bounce');void b.offsetWidth;b.classList.add('bounce');setTimeout(()=>b.classList.remove('bounce'),750)}openWin()})});
+dock.addEventListener('mouseenter',()=>{C=btns.map(b=>{const r=b.getBoundingClientRect();return r.left+r.width/2})});
+dock.addEventListener('mousemove',e=>btns.forEach((b,i)=>setS(b,1+.62*Math.exp(-((e.clientX-C[i])**2)/(2*52*52)))));
+dock.addEventListener('mouseleave',()=>btns.forEach(b=>setS(b,1)));
+// menus
+const ex=c=>document.execCommand(c);
+const MENUS={sys:[['About ESOK',()=>toast('ESOK · your space, your way')],0,['Switch to Browser Mode',()=>setMode('website')]],
+ESOK:[['About ESOK',()=>toast('ESOK · your space, your way')],['Settings…',()=>nav('settings'),'⌘,'],0,['Close Window',closeWin,'⌘W']],
+File:[['New Search',()=>{nav('home');setTimeout(()=>{const q=$('#query');q&&q.focus()},80)},'⌘N'],['Close Window',closeWin,'⌘W']],
+Edit:[['Undo',()=>ex('undo'),'⌘Z'],['Redo',()=>ex('redo'),'⇧⌘Z'],0,['Cut',()=>ex('cut'),'⌘X'],['Copy',()=>ex('copy'),'⌘C'],['Select All',()=>ex('selectAll'),'⌘A']],
+View:[['Enter Full Screen',zoomWin,'⌃⌘F'],['Spotlight Search',openSpot,'⌃Space']],
+Go:Object.entries(PAGES).map(([k,v])=>[v,()=>nav(k)]),
+Window:[['Minimize',minWin,'⌘M'],['Zoom',zoomWin],0,['Bring All to Front',openWin]],
+Help:[['ESOK Help',()=>toast('Tip: press Ctrl+Space to open Spotlight')]]};
+let cur=null;
+function closeMenus(){drop.classList.remove('show');cur&&cur.classList.remove('on');cur=null;cc.classList.remove('show')}
+function showMenu(btn){closeMenus();cur=btn;btn.classList.add('on');drop.innerHTML='';MENUS[btn.dataset.m].forEach(it=>{if(!it){drop.append(document.createElement('hr'));return}const b=document.createElement('button'),a=document.createElement('span'),k=document.createElement('kbd');a.textContent=it[0];k.textContent=it[2]||'';b.append(a,k);b.onclick=()=>{closeMenus();it[1]()};drop.append(b)});drop.style.left=btn.getBoundingClientRect().left+'px';drop.classList.add('show')}
+document.querySelectorAll('#esokMacMenu [data-m]').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();cur===b?closeMenus():showMenu(b)});b.addEventListener('mouseenter',()=>{if(cur&&cur!==b)showMenu(b)})});
+// control center
+const gsel=$('#liquidGlassSelect'),cg=$('#ccGlass');
+const paintGlass=()=>cg.classList.toggle('on',!B.classList.contains('glass-off'));
+cg.onclick=()=>{if(gsel){gsel.value=gsel.value==='on'?'off':'on';gsel.dispatchEvent(new Event('change'))}paintGlass()};
+$('#ccBrowser').onclick=()=>{closeMenus();setMode('website')};
+$('#ccDim').addEventListener('input',e=>B.style.setProperty('--dim',(100-e.target.value)/100));
+$('#mmCC').addEventListener('click',e=>{e.stopPropagation();const was=cc.classList.contains('show');closeMenus();paintGlass();cc.classList.toggle('show',!was)});
+// spotlight
+let sel=0,items=[];
+function paint(){sr.innerHTML='';items.forEach((it,i)=>{const b=document.createElement('button'),s=document.createElement('small');b.className=i===sel?'sel':'';b.textContent=it.t;s.textContent=it.s;s.style.cssText='margin-left:auto;opacity:.6';b.append(s);b.onclick=()=>{hideSpot();it.f()};sr.append(b)})}
+function render(){const raw=si.value.trim(),q=raw.toLowerCase();items=Object.entries(PAGES).filter(([k,v])=>!q||v.toLowerCase().includes(q)).map(([k,v])=>({t:v,s:'Application',f:()=>nav(k)}));
+ if(q)items.push({t:'Search the web for “'+raw+'”',s:'Web',f:()=>window.esokProxy(raw)});sel=0;paint()}
+function openSpot(){closeMenus();sp.classList.add('show');si.value='';render();setTimeout(()=>si.focus(),30)}
+function hideSpot(){sp.classList.remove('show')}
+si.addEventListener('input',render);
+si.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){sel=(sel+1)%items.length;paint();e.preventDefault()}else if(e.key==='ArrowUp'){sel=(sel-1+items.length)%items.length;paint();e.preventDefault()}else if(e.key==='Enter'){const it=items[sel];if(it){hideSpot();it.f()}}else if(e.key==='Escape')hideSpot()});
+sp.addEventListener('pointerdown',e=>{if(e.target===sp)hideSpot()});
+$('#mmSearch').addEventListener('click',e=>{e.stopPropagation();openSpot()});
+addEventListener('keydown',e=>{if(!mac())return;if((e.ctrlKey||e.metaKey)&&e.code==='Space'){e.preventDefault();sp.classList.contains('show')?hideSpot():openSpot()}else if(e.key==='Escape'){closeMenus();hideSpot()}});
+// clock
+const clk=$('#mmClock'),tick=()=>{clk.textContent=new Intl.DateTimeFormat(undefined,{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date()).replace(/,/g,'')};tick();setInterval(tick,15000);
+addEventListener('resize',()=>{if(cls('is-zoom')){G(0,24,innerWidth,innerHeight-110)}});
+sync();
+})();
+</script>
+<script id="esok-widgets-js">
+(()=>{
+const $=s=>document.querySelector(s);
+let t='';for(let i=0;i<12;i++)t+='<line x1="50" y1="'+(i%3?5:4)+'" x2="50" y2="'+(i%3?8:10)+'" stroke-width="'+(i%3?1:2)+'" transform="rotate('+i*30+' 50 50)"/>';
+$('#wgTicks').innerHTML=t;
+const rot=(id,a)=>$(id).setAttribute('transform','rotate('+a+' 50 50)');
+const F=(o)=>new Intl.DateTimeFormat(undefined,o);
+let day=-1;
+function cal(n){const y=n.getFullYear(),m=n.getMonth(),first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+ let h='<div class="cal-h">'+F({month:'long',year:'numeric'}).format(n)+'</div><div class="cal-g">';
+ ['S','M','T','W','T','F','S'].forEach(d=>{h+='<b>'+d+'</b>'});
+ for(let i=0;i<first;i++)h+='<i></i>';
+ for(let d=1;d<=days;d++)h+='<span'+(d===n.getDate()?' class="today"':'')+'>'+d+'</span>';
+ $('#wgCal').innerHTML=h+'</div>'}
+function tick(){const n=new Date(),s=n.getSeconds(),m=n.getMinutes(),h=n.getHours()%12;
+ rot('#hH',(h+m/60)*30);rot('#hM',(m+s/60)*6);rot('#hS',s*6);
+ $('#wdW').textContent=F({weekday:'long'}).format(n);$('#wdD').textContent=n.getDate();
+ $('#wdM').textContent=F({month:'long',year:'numeric'}).format(n);$('#wdT').textContent=F({hour:'numeric',minute:'2-digit'}).format(n);
+ if(day!==n.getDate()){day=n.getDate();cal(n)}}
+tick();setInterval(tick,1000);
+const nt=$('#wnText');try{nt.value=localStorage.getItem('esok-note')||''}catch(e){}
+nt.addEventListener('input',()=>{try{localStorage.setItem('esok-note',nt.value)}catch(e){}});
+})();
+</script>
+<script id="esok-macos-wallpaper">
+(()=>{
+const root=document.documentElement,box=document.getElementById('ccWp');
+const WP=['radial-gradient(60% 50% at 18% 28%,#ff7eb3 0,transparent 62%),radial-gradient(55% 60% at 86% 18%,#6fa0ff 0,transparent 62%),radial-gradient(70% 60% at 72% 98%,#ff9a62 0,transparent 62%),radial-gradient(60% 70% at 8% 100%,#6a4cff 0,transparent 62%),linear-gradient(160deg,#2a1a6e,#14306f 52%,#4b1f70)',
+'radial-gradient(60% 55% at 20% 20%,#4fd1ff 0,transparent 60%),radial-gradient(60% 60% at 85% 80%,#00c2a8 0,transparent 60%),linear-gradient(160deg,#06204a,#0a4a7a)',
+'radial-gradient(60% 55% at 80% 15%,#ffd36b 0,transparent 60%),radial-gradient(70% 60% at 20% 90%,#ff5e7e 0,transparent 60%),linear-gradient(160deg,#5a1f5e,#c2476b 60%,#ff9a62)',
+'radial-gradient(60% 55% at 25% 25%,#6ee7a8 0,transparent 60%),radial-gradient(60% 60% at 80% 75%,#8b5cf6 0,transparent 60%),linear-gradient(160deg,#07241f,#1b1448)',
+'linear-gradient(160deg,#2c2c30,#0e0e12)'];
+let pick=0,chosen=false;try{const s=localStorage.getItem('esok-mac-wp');if(s!==null){chosen=true;pick=Math.min(WP.length-1,Math.max(0,+s||0))}}catch(e){}
+function apply(){const up=root.style.getPropertyValue('--esok-wallpaper'),want=(!chosen&&up.indexOf('url(')>-1)?up:WP[pick];
+ if(root.style.getPropertyValue('--mac-wp')!==want)root.style.setProperty('--mac-wp',want);
+ box.querySelectorAll('button').forEach((b,i)=>b.classList.toggle('on',i===pick))}
+WP.forEach((g,i)=>{const b=document.createElement('button');b.style.background=g;b.setAttribute('aria-label','Wallpaper '+(i+1));
+ b.onclick=()=>{pick=i;chosen=true;try{localStorage.setItem('esok-mac-wp',i)}catch(e){}apply()};box.append(b)});
+new MutationObserver(apply).observe(root,{attributes:true,attributeFilter:['style']});
+apply();
+})();
+</script>
+</body></html>
